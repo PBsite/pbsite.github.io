@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>其他</title>
+    <link href="/2023/06/18/%E5%85%B6%E4%BB%96/index/"/>
+    <url>/2023/06/18/%E5%85%B6%E4%BB%96/index/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>其他</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>网络安全</title>
+    <link href="/2023/06/18/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index/"/>
+    <url>/2023/06/18/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>网络安全</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>国学</title>
+    <link href="/2023/06/18/%E5%9B%BD%E5%AD%A6/index/"/>
+    <url>/2023/06/18/%E5%9B%BD%E5%AD%A6/index/</url>
+    
+    <content type="html"><![CDATA[<p>#这里是国学分类文件夹</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>国学</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>开发</title>
+    <link href="/2023/06/18/%E5%BC%80%E5%8F%91/index/"/>
+    <url>/2023/06/18/%E5%BC%80%E5%8F%91/index/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>开发</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>运维</title>
+    <link href="/2023/06/18/%E8%BF%90%E7%BB%B4/index/"/>
+    <url>/2023/06/18/%E8%BF%90%E7%BB%B4/index/</url>
+    
+    <content type="html"><![CDATA[<p>本站只是个人博客，用来记录笔记，主题安装参考：<a href="https://blog.csdn.net/weixin_42043205/article/details/123390435">https://blog.csdn.net/weixin_42043205/article/details/123390435</a></p><p>多级分类参考：<br>Hexo Fluid 用户手册  <a href="https://hexo.fluid-dev.com/docs/guide/#%E5%AF%BC%E8%88%AA%E8%8F%9C%E5%8D%95">https://hexo.fluid-dev.com/docs/guide/#%E5%AF%BC%E8%88%AA%E8%8F%9C%E5%8D%95</a></p><p>npm install hexo-deployer-git –save</p><h1 id="安装Hexo的git同步插件"><a href="#安装Hexo的git同步插件" class="headerlink" title="安装Hexo的git同步插件"></a>安装Hexo的git同步插件</h1><p>插件参考：hexo-auto-category    <a href="https://blog.eson.org/pub/e2f6e239/">https://blog.eson.org/pub/e2f6e239/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>运维</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2023/06/18/hello-world/"/>
+    <url>/2023/06/18/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
