@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. WebSocket协议1.1 简介WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端与服务器全双工（full-duplex）通信，即允许服务器主动发送信息给客户端。因此，在WebSocket中，客户端和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输，这样也使得客户端和服务器之间的数据交换变得更加简单。 ​ 编辑切换为居中 添加图片注释，不超">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/WebSocket%20API%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E8%A7%A3%E8%AF%BB/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="1. WebSocket协议1.1 简介WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端与服务器全双工（full-duplex）通信，即允许服务器主动发送信息给客户端。因此，在WebSocket中，客户端和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输，这样也使得客户端和服务器之间的数据交换变得更加简单。 ​ 编辑切换为居中 添加图片注释，不超">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-eaeb5903ffaf33e6bc89cdeaa09dba0a_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-6ad5a2ebc51022dd7c185260cf245b37_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-fd2e05193759e51100c7de40a5e3ccd7_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-9d6b1c0dc9d5fd7d25107904b1551ad2_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-37d40b826131065beebb6072ee62c445_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-a676febc1f2b431be9e3d6c97ed5a754_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-adc4d3a63a187fc97b5de2bdfcfd0e78_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-82f7c6246f5fd561062f15983bf4496e_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-a2fafd63e6f6a44486e05b79c84ea085_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-22d41d2a72a72361085a43f17835a5b9_720w.png">
+<meta property="og:image" content="https://pica.zhimg.com/80/v2-12aa71fcc98ab9fe7e3fd4a1853f3883_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-6a3447a3f23a03aed4ff4920081d9c3d_720w.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6df66fe50ea439ef152d6b667e1b4821_720w.png">
+<meta property="og:image" content="https://pica.zhimg.com/80/v2-869076f6e55fc145efbc641c6a22b56c_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-320d3c6a61e3b208624afcd8af62de93_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-48434ddde136f8ea6b5dfe9fe19326ea_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-9c2f3f730e321548f0248ee4173b4016_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-90d818e38cc3af805225d032ac90b4bd_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-da949c72221eb0d489c125c2b2ac001b_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-dec3fafcec9c6445b2184cfc37ee7394_720w.png">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-713cf32b07bc93611c4c4aeb5fed9f9f_720w.png">
+<meta property="article:published_time" content="2023-08-01T14:17:01.306Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-eaeb5903ffaf33e6bc89cdeaa09dba0a_720w.png">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-WebSocket协议"><a href="#1-WebSocket协议" class="headerlink" title="1. WebSocket协议"></a>1. WebSocket协议</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a><strong>1.1 简介</strong></h3><p>WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端与服务器全双工（full-duplex）通信，即允许服务器主动发送信息给客户端。因此，在WebSocket中，客户端和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输，这样也使得客户端和服务器之间的数据交换变得更加简单。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-eaeb5903ffaf33e6bc89cdeaa09dba0a_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="1-2-特点"><a href="#1-2-特点" class="headerlink" title="1.2 特点"></a><strong>1.2 特点</strong></h3><p>WebSocket特点如下：</p>
+<ol>
+<li><strong>较少的控制开销。</strong>在连接建立后，服务器和客户端之间交换数据时，用于协议控制的数据包头部相对较小。在不包含扩展的情况下，对于服务器到客户端的内容，此头部大小只有2至10字节（和数据包长度有关）；对于客户端到服务器的内容，此头部还需要加上额外的4字节的掩码。</li>
+<li><strong>更强的实时性。</strong>由于协议是全双工的，所以服务器可以随时主动给客户端下发数据。</li>
+<li><strong>保持连接状态。</strong>与HTTP不同的是，Websocket需要先建立连接，这就使得其成为一种有状态的协议，之后通信时可以省略部分状态信息。而HTTP请求可能需要在每个请求都携带状态信息（如身份认证等）。</li>
+<li><strong>更好的二进制支持。</strong>Websocket定义了二进制帧，相对HTTP，可以更轻松地处理二进制内容。</li>
+<li><strong>可以支持扩展。</strong>Websocket定义了扩展，用户可以扩展协议、实现部分自定义的子协议。</li>
+<li><strong>更好的压缩效果。</strong>相对于HTTP压缩，Websocket在适当的扩展支持下，可以沿用之前内容的上下文，在传递类似的数据时，可以显著地提高压缩率。</li>
+</ol>
+<h3 id="1-3-WebSocket-和-HTTP-的区别"><a href="#1-3-WebSocket-和-HTTP-的区别" class="headerlink" title="1.3 WebSocket 和 HTTP 的区别"></a><strong>1.3 WebSocket 和 HTTP 的区别</strong></h3><p><img src="https://picx.zhimg.com/80/v2-6ad5a2ebc51022dd7c185260cf245b37_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<ol>
+<li>HTTP 是一个无状态的协议，使客户端向服务器请求资源，并从服务器接收响应。客户端使用 HTTP 请求&#x2F;响应语法，即请求发送到服务器之后，服务器向客户端返回 HTML 文件、图像和其他媒体内容。</li>
+<li>WebSocket 通信协议尝试在较大范围内改进 Web 实时通信和插件技术，并提供全双工、基于事件的通信而无需采用低效的轮询方式。开发人员可以从 Web 浏览器的 JS 端轻松地创建 WebSocket 连接并发送数据，进而实现应用程序的实时数据传输的实现。</li>
+<li>由于 WebSocket 是面向消息的，因此它更加适用于实时通信，而 HTTP 更适用于请求和服务器-客户端通信的响应。</li>
+</ol>
+<h2 id="2-WebSocket-API"><a href="#2-WebSocket-API" class="headerlink" title="2. WebSocket API"></a>2. WebSocket API</h2><p>Websocket 使用 ws 或 wss 的统一资源标志符（URI），其中 wss 表示使用了 TLS 的 Websocket，类似于HTTP协议的http和https。wss协议通过TLS连接建立一个WebSocket，即加密传输；ws协议即明文传输。</p>
+<p>ws:&#x2F;&#x2F;echo.websocket.org</p>
+<p>wss:&#x2F;&#x2F;echo.websocket.org</p>
+<p>WebSocket API与传统API一样都是由通信协议、域名、版本号、路径、请求参数等要素组成，只是由于WebSocket API在完成握手流程之后，客户端和服务端之间就创建了持久性的连接，并且可以直接用文本消息或者二进制消息进行通信的数据交互，这样我们在WebSocket API流量报文中看到的一般都是JSON格式文本消息。</p>
+<p>从开发的角度，WebSocket API还包括了：</p>
+<ol>
+<li>构造函数，构造函数的语法示例为：const myWebSocket &#x3D; new WebSocket(url [, protocols])，其中url表示连接的 URL；protocols表示为一个协议字符串或者一个包含协议字符串的数组，为可选。</li>
+<li>属性：属性分为很多主要有bufferedAmount，表示未发送至服务器的字节数；onopen，表示用于指定连接成功后的回调函数，等等。</li>
+<li>方法：方法主要分为close和send，分别表示WebSocket关闭连接和数据传入服务器。</li>
+<li>事件：事件主要有close、error、message、open。</li>
+</ol>
+<h2 id="3-WebSocket-API业务场景"><a href="#3-WebSocket-API业务场景" class="headerlink" title="3. WebSocket API业务场景"></a>3. WebSocket API业务场景</h2><p>WebSocket API作为一种重要客户端-服务器通信接口，究竟在哪些业务场景下能够用到WebSocket API呢？主要分为三大类：</p>
+<ol>
+<li><strong>实时数据更新的应用程序：</strong>对于一些需要服务端不断发送数据在客户端实时显示的应用，使用WebSocket API作为数据传输接口无疑是最好的选择。</li>
+<li><strong>游戏应用程序：</strong>在游戏应用中，一般的场景是服务器需要不断接收数据，无需刷新UI，传输的数据就会在屏幕上生效，UI也会自动刷新，不需要建立新的连接。</li>
+<li><strong>聊天应用程序：</strong>聊天应用程序一般会有较长的连接状态，以方便用户与用户之间的实时交流，采用WebSocket API只需建立一次连接便可以实现一对一的消息传输，并且保持长时间的通讯连接。</li>
+</ol>
+<p>具体业务场景列举：</p>
+<p><img src="https://picx.zhimg.com/80/v2-fd2e05193759e51100c7de40a5e3ccd7_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h2 id="4-WebSocket-API安全风险"><a href="#4-WebSocket-API安全风险" class="headerlink" title="4. WebSocket API安全风险"></a>4. WebSocket API安全风险</h2><p>WebSocket API的安全风险主要分为两大类：常规攻击风险和特有攻击风险。以下是这两大类风险的详细解读。</p>
+<h3 id="4-1-WebSocket-API常规攻击风险"><a href="#4-1-WebSocket-API常规攻击风险" class="headerlink" title="4.1 WebSocket API常规攻击风险"></a><strong>4.1 WebSocket API常规攻击风险</strong></h3><h3 id="（1）消息体输入漏洞"><a href="#（1）消息体输入漏洞" class="headerlink" title="（1）消息体输入漏洞"></a><strong>（1）消息体输入漏洞</strong></h3><p>和HTTP协议一样，WebSocket API在传输消息的时候一般采用json格式传输文本，所以对于消息体中参数依然可以可以进行SQL注入、XSS、命令执行、文件读取、SSFR、任意文件上传……等常规输入性漏洞攻击。</p>
+<p><img src="https://picx.zhimg.com/80/v2-9d6b1c0dc9d5fd7d25107904b1551ad2_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p><strong>漏洞案例：</strong></p>
+<p>在线聊天应用中使用WebSocket API在客户端和服务端之间传输消息。当一个用户输入聊天消息时，如下的一个WebSocket消息被发送到服务端：</p>
+<p><img src="https://picx.zhimg.com/80/v2-37d40b826131065beebb6072ee62c445_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>服务端会将这个消息内容通过WebSocket API转发给另外一个用户，然后在另一个用户的浏览器中被JS渲染为一段HTML代码。</p>
+<p><img src="https://picx.zhimg.com/80/v2-a676febc1f2b431be9e3d6c97ed5a754_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>当服务器没有对转发的内容做安全防御或过滤时，通过修改WebSocket API消息体实施xss攻击。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-adc4d3a63a187fc97b5de2bdfcfd0e78_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p><img src="https://pic1.zhimg.com/80/v2-82f7c6246f5fd561062f15983bf4496e_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="（2）身份认证绕过"><a href="#（2）身份认证绕过" class="headerlink" title="（2）身份认证绕过"></a><strong>（2）身份认证绕过</strong></h3><p>WebSocket API没有规定服务器在握手阶段应该如何认证客户端身份。服务器可以采用任何 HTTP 服务器的客户端身份认证机制，如 cookie认证，HTTP 基础认证，TLS 身份认证等，在WebSocket API在身份认证面临的攻击风险和传统的API面临的风险是一样的，因此WebSocket API同样面临着OWASP API 2023十大安全风险中的API2：身份认证失效风险。</p>
+<p><img src="https://picx.zhimg.com/80/v2-a2fafd63e6f6a44486e05b79c84ea085_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="（3）授权失效"><a href="#（3）授权失效" class="headerlink" title="（3）授权失效"></a><strong>（3）授权失效</strong></h3><p>同身份认证一样，WebSocket API没有明确指定任何授权方式，API中用户资源访问等的授权策略由服务端或开发者实现。WebSocket API也会存在和传统Web应用相同的安全风险，如：垂直越权、水平越权、未授权访问等等安全风险。所以WebSocket API同样面临OWASP API 2023十大安全风险中API1:对象级别授权失效、API3:对象属性级别授权失效、API5:功能级别授权失效的安全风险。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-22d41d2a72a72361085a43f17835a5b9_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="（4）拒绝服务"><a href="#（4）拒绝服务" class="headerlink" title="（4）拒绝服务"></a><strong>（4）拒绝服务</strong></h3><p>WebSocket API同样易遭受拒绝服务攻击，其面临风险分为客户端拒绝服务风险和服务端拒绝服务风险。</p>
+<ol>
+<li>客户端拒绝服务：WebSocket 连接限制不同于HTTP连接限制，WebSocket有一个更高的连接限制，不同的浏览器的最大连接数也存在差异，通过发送恶意内容，占用所有Websocket，导致浏览器资源耗尽，引起拒绝服务。</li>
+<li>服务端拒绝服务：WebSocket建立的是持久连接，只有客户端或服务端其中一方发起关闭连接的请求，连接才会关闭。攻击者可以通过发起请求并建立大量的连接，导致服务器资源耗尽，引发拒绝服务攻击。</li>
+</ol>
+<h3 id="4-2-WebSocket-API-特有攻击面"><a href="#4-2-WebSocket-API-特有攻击面" class="headerlink" title="4.2 WebSocket API 特有攻击面"></a><strong>4.2 WebSocket API 特有攻击面</strong></h3><h3 id="（1）跨站WebSockets劫持"><a href="#（1）跨站WebSockets劫持" class="headerlink" title="（1）跨站WebSockets劫持"></a><strong>（1）跨站WebSockets劫持</strong></h3><p>在WebSocket API发起WebSocket握手请求时，浏览器会在请求中添加一个名为Origin的HTTP头，Oringin字段表示发起请求的源，以此来防止未经授权的跨站点访问请求。WebSocket 规范中没有强制规定握手阶段的 Origin 头是必需的，且WebSocket不受浏览器同源策略的限制。如果服务端没有针对Origin头部进行验证可能会导致跨站点WebSocket劫持攻击，当WebSocket握手请求仅依靠HTTP cookie进行会话处理并且不包含任何CSRF token或其他不可预测的值时，也有可能会造成这种漏洞。这攻击风险类似于JSONP劫持，是属于CSRF攻击的一种。</p>
+<p><strong>漏洞示例：</strong></p>
+<p>通过实时聊天发送聊天消息：</p>
+<p><img src="https://pica.zhimg.com/80/v2-12aa71fcc98ab9fe7e3fd4a1853f3883_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>在WebSocket握手请求中发现仅仅是靠cookie进行会话处理，并没有CSRF的防护手段。</p>
+<p><img src="https://picx.zhimg.com/80/v2-6a3447a3f23a03aed4ff4920081d9c3d_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>查看WebSocket历史消息记录。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-6df66fe50ea439ef152d6b667e1b4821_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>在浏览器中找到漏洞利用服务器。</p>
+<p><img src="https://pica.zhimg.com/80/v2-869076f6e55fc145efbc641c6a22b56c_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>同时我们在burp设置一个burp client，这里模拟的是攻击者。</p>
+<p><img src="https://picx.zhimg.com/80/v2-320d3c6a61e3b208624afcd8af62de93_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>在漏洞利用服务器中贴入利用JS代码。</p>
+<p><img src="https://picx.zhimg.com/80/v2-48434ddde136f8ea6b5dfe9fe19326ea_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>漏洞利用服务器并将漏洞利用程序传递给受害者，然后在攻击者也就是我们创建的burp client中返回了受害者相关敏感信息。</p>
+<p><img src="https://picx.zhimg.com/80/v2-9c2f3f730e321548f0248ee4173b4016_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>解码发现用户登陆凭证。</p>
+<p><img src="https://picx.zhimg.com/80/v2-90d818e38cc3af805225d032ac90b4bd_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="（2）中间人攻击"><a href="#（2）中间人攻击" class="headerlink" title="（2）中间人攻击"></a><strong>（2）中间人攻击</strong></h3><p>同样是出现在操控WebSocket握手流程时的攻击风险，可以通过获取并篡改WebSocket握手请求，实施以下攻击：</p>
+<p>通过伪造客户端信息与服务器建立WebSocket连接；无条件信任HTTP头，导致某些安全策略可以被绕过。例如：X-Forwarded-For头，XSS绕过WAF；应用程序自定义的HTTP标头引入的攻击面。</p>
+<p><strong>漏洞案例：</strong></p>
+<p>在线聊天中使用了XSS攻击之后，攻击已被阻止，并且WebSocket 连接已终止。</p>
+<p><img src="https://picx.zhimg.com/80/v2-da949c72221eb0d489c125c2b2ac001b_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>拦截WebSocket 握手请求并使用X-Forwarded-For头来绕过黑名单。</p>
+<p><img src="https://picx.zhimg.com/80/v2-dec3fafcec9c6445b2184cfc37ee7394_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<p>一直采用这种方式进行绕过后，等到聊天框重新出现就说明绕过了黑名单的检测，并且可以实施xss攻击，后续步骤可以参考上述消息体输入漏洞攻击中的案例。</p>
+<p><img src="https://picx.zhimg.com/80/v2-713cf32b07bc93611c4c4aeb5fed9f9f_720w.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>编辑切换为居中</p>
+<p>添加图片注释，不超过 140 字（可选）</p>
+<h3 id="4-3-安全风险总结"><a href="#4-3-安全风险总结" class="headerlink" title="4.3 安全风险总结"></a><strong>4.3 安全风险总结</strong></h3><p>实际上，几乎所有的Web漏洞都有可能出现在WebSocket中。因为，WebSocket本质上就是一个通过HTTP建立连接的双向全双工的通信协议而已，但由于其相比HTTP多了一“工”的特性，可能会出现一些WebSocket API特有的攻击场景。所以，WebSocket API除了面临着传统API的安全风险之外，还有容易遭受由于自己特殊性而产生的攻击，这些攻击来自于WebSocket API的握手请求流程。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/" class="category-chain-item">代码安全</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/代码安全/WebSocket API安全风险解读/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/CursorCode%20%E5%9F%BA%E4%BA%8ECursor%20API%E7%9A%84GPT%E6%99%BA%E8%83%BDAI%E4%BB%A3%E7%A0%81%E5%8A%A9%E6%89%8B/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/gshark%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本教程   命令 说明    webscan xray核心功能，用来发现探测Web漏洞   servicescan 服务扫描功能 用来探测服务漏洞   poclint 检测poc是否符合规范   reverse 启动单独的盲打平台服务   genca 用于快速生成一个根证书，主要用于被动代理扫描HTTPS流量时用到   upgrade 检查新版本并自动升级   version 版本信息   he">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/xray%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B%E5%92%8Crad%E8%81%94%E5%8A%A8%E6%95%99%E7%A8%8B%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="基本教程   命令 说明    webscan xray核心功能，用来发现探测Web漏洞   servicescan 服务扫描功能 用来探测服务漏洞   poclint 检测poc是否符合规范   reverse 启动单独的盲打平台服务   genca 用于快速生成一个根证书，主要用于被动代理扫描HTTPS流量时用到   upgrade 检查新版本并自动升级   version 版本信息   he">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-01T14:17:01.314Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="基本教程"><a href="#基本教程" class="headerlink" title="基本教程"></a>基本教程</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>webscan</td>
+<td>xray核心功能，用来发现探测Web漏洞</td>
+</tr>
+<tr>
+<td>servicescan</td>
+<td>服务扫描功能 用来探测服务漏洞</td>
+</tr>
+<tr>
+<td>poclint</td>
+<td>检测poc是否符合规范</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>启动单独的盲打平台服务</td>
+</tr>
+<tr>
+<td>genca</td>
+<td>用于快速生成一个根证书，主要用于被动代理扫描HTTPS流量时用到</td>
+</tr>
+<tr>
+<td>upgrade</td>
+<td>检查新版本并自动升级</td>
+</tr>
+<tr>
+<td>version</td>
+<td>版本信息</td>
+</tr>
+<tr>
+<td>help</td>
+<td>显示命令列表或一个命令的帮助</td>
+</tr>
+<tr>
+<td>subdomain</td>
+<td>子域名扫描 高级本才有的命令</td>
+</tr>
+</tbody></table>
+<p><strong>代理模式</strong>：代理可以与 burpsuite 等其他软件联动使用。</p>
+<p><strong>指定插件扫描</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta">#仅加载一个指定插件 --plugins xxe </span><br><span class="hljs-meta">#加载多个插件  --plugins xss,xxe,dirscan</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>指定POC扫描</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># 只加载一个 POC, 精准匹配 --plugins phantasm --poc poc-yaml-thinkphp5-controller-rce<br># 加载内置的所有带thinkphp的POC  --plugins phantasm --poc <span class="hljs-string">&quot;*thinkphp*&quot;</span><br># 加载本地 <span class="hljs-regexp">/home/</span>test<span class="hljs-regexp">/pocs/</span> 目录下所有的poc --plugins phantasm --poc <span class="hljs-string">&quot;/home/test/pocs&quot;</span><br># 加载本地 <span class="hljs-regexp">/home/</span>test<span class="hljs-regexp">/pocs/</span> 目录下包含thinkphp的POC --plugins phantasm --poc <span class="hljs-string">&quot;/home/test/pocs/*thinkphp*&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h4><ul>
+<li>使用基本爬虫对爬虫爬取的链接进行爬取和扫描，寻找<code>http://example.com</code>网站的漏洞，并输出到<code>vuln.html</code></li>
+</ul>
+<p>xray.exe webscan –basic-crawler <a target="_blank" rel="noopener" href="http://example.com/">http://example.com</a> –html-output vuln.html</p>
+<ul>
+<li>只扫描单个 URL，不使用爬虫</li>
+</ul>
+<p>xray.exe webscan –url <a target="_blank" rel="noopener" href="http://example.com/?a=b">http://example.com/?a=b</a> –html-output single-url.html</p>
+<ul>
+<li>手动指定此运行的插件。默认情况下，将启用所有内置插件。您可以使用以下命令指定为此扫描启用哪些插件，如下命令注入和sql注入插件。</li>
+</ul>
+<p>xray.exe webscan –plugins cmd-injection,sqldet –url <a target="_blank" rel="noopener" href="http://example.com/">http://example.com</a> –html-output 1.html</p>
+<p>xray.exe webscan –plugins cmd-injection,sqldet –listen 127.0.0.1:7777 –html-output 1.html</p>
+<p>生成证书，并将生成的证书导入浏览器中<br>xray.exe genca<br>如上就会在本目录生成<strong>ca.crt</strong>和<strong>ca.key</strong>两个文件，把crt导入浏览器，运行如下命令进行监听<br>xray.exe webscan –listen 127.0.0.1:7777 –html-output test.html</p>
+<h4 id="输入来源"><a href="#输入来源" class="headerlink" title="输入来源"></a>输入来源</h4><ul>
+<li><p><code>--listen</code>: 启动一个被动代理服务器作为输入，如 <code>--listen 127.0.0.1:7777</code></p>
+</li>
+<li><p><code>--basic-crawler</code>: 启用一个基础爬虫作为输入， 如 <code>--basic-crawler http://example.com</code></p>
+</li>
+<li><p><code>--url-file</code>: 批量从文件中读取URL</p>
+</li>
+<li><p><code>--url</code>: 用于快速测试单个URL，不带爬虫，默认为<strong>「GET」</strong>请求</p>
+</li>
+<li><p><code>--data</code>:指定 data，同时变为POST请求</p>
+</li>
+<li><p><code>--raw-request</code>: 加载一个原始的 HTTP 请求并用于扫描，类似于<code>sqlmap -r</code></p>
+</li>
+</ul>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p><code>--json-output</code>: 将结果输出到一个 json 文件中，输出是JSON格式的结构化数据</p>
+<p><code>--html-output</code>: 将结果输出为 html 报告</p>
+<p><code>--webhook-output</code>: 将结果发送到一个地址，输出是JSON格式的结构化数据，需要自己搭建一个Web服务器，接收到xray发送的漏洞信息</p>
+<h3 id="RAD联动"><a href="#RAD联动" class="headerlink" title="RAD联动"></a>RAD联动</h3><p>先使用Rad对待安全扫描的网站进行爬虫，将爬虫的结果保存成文件后，用X-ray扫描爬虫文件即可实现一次比较完整的安全漏洞扫描过程。</p>
+<p>xray和rad都是长亭科技开源的，在git上可以下载<br>漏洞靶机地址：<a target="_blank" rel="noopener" href="http://testphp.vulnweb.com/%EF%BC%9Bhttp://demo.testfire.net">http://testphp.vulnweb.com/；http://demo.testfire.net</a></p>
+<h3 id="测试使用的命令和登陆"><a href="#测试使用的命令和登陆" class="headerlink" title="测试使用的命令和登陆"></a>测试使用的命令和登陆</h3><p>先把xray使用监听代理模式开启，看到建立监听以后（一般需要3秒钟）在执行rad爬取站点，rad也使用代理模式</p>
+<p>.\xray.exe webscan –listen 127.0.0.1:7777 –html-output welcomePages.html</p>
+<p> .\rad.exe –url-file .\targets.txt   -http-proxy 127.0.0.1:7777 -json WelcomePagesResult.json</p>
+<p><strong>认证配置</strong>：</p>
+<p>如果把认证配置在xray上，rad则没有认证就没法爬取需要认证的页面，所以认证需要加在rad上，rad支持header配置，所以需要配置rad_config.yml里面的domain_headers下面的headers: {}</p>
+<p>另一个比较好的爬虫是360团队的crawlergo，下载地址：<br><a target="_blank" rel="noopener" href="https://github.com/Qianlitp/crawlergo/">https://github.com/Qianlitp/crawlergo/</a></p>
+<h4 id="集成项目推荐"><a href="#集成项目推荐" class="headerlink" title="集成项目推荐"></a>集成项目推荐</h4><p><a target="_blank" rel="noopener" href="https://github.com/02bx/crawlergo-to-xray">https://github.com/02bx/crawlergo-to-xray</a><br><a target="_blank" rel="noopener" href="https://github.com/ggg4566/crawler2xray">https://github.com/ggg4566/crawler2xray</a><br><a target="_blank" rel="noopener" href="https://github.com/scopion/crawlergo_xray">https://github.com/scopion/crawlergo_xray</a></p>
+<p><strong>注意：本工具需要提前装好新版本的 chrome，否则将无法使用</strong></p>
+<p><strong>基本使用</strong><br><code>rad -t http://example.com</code></p>
+<p><strong>需要手动登录的情况</strong><br><code>rad -t http://example.com -wait-login</code><br>执行以上命令会自动禁用无头浏览模式，开启一个浏览器供手动登录。 在登录完毕后在命令行界面点击回车键继续爬取。<br>**需要cookie登陆的时候<br>在进行爬虫扫描时，遇到需要登录的网站。<br>在配置文件的http的header处修改，cookie即可。如下图：</p>
+<p><strong>将爬取基本结果导出为文件</strong><br><code>rad -t http://example.com -text-output result.txt</code><br>以上命令会将爬取到的URL输出到result.txt中 格式为 Method URL 例：GET <a target="_blank" rel="noopener" href="http://example.com/">http://example.com</a></p>
+<p><strong>导出完整请求</strong><br><code>rad -t http://example.com -full-text-output result.txt</code><br><strong>导出完整请求为JSON</strong><br><code>rad -t http://example.com -json result.json</code></p>
+<p><strong>与xray联动</strong><br><strong>社区版：设置上级代理为xray监听地址 运行xray：</strong><br><code>xray webscan --listen 127.0.0.1:7777 --html-output proxy.html</code></p>
+<p><strong>运行rad：</strong><br><code>rad -t http://example.com -http-proxy 127.0.0.1:7777</code></p>
+<p><strong>RAD批量爬取</strong><br>新增批量爬取功能（–url-file）</p>
+<p><strong>高级版对 rad 进行了深度融合，下载后可以一键使用：</strong><br><code>xray webscan --browser-crawler http://example.com --html-output vuln.html</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" class="category-chain-item">安全工具</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/安全工具/xray基本教程和rad联动教程和配置文件/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/ysoserial%20Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E9%AA%8C%E8%AF%81%E5%88%A9%E7%94%A8%E5%B7%A5%E5%85%B7/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/SpringBoot%20Scan%20GUI%20%20%20Spring%20Boot%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%B7%A5%E5%85%B7/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

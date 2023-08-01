@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="##推荐的工具https:&#x2F;&#x2F;grep.app&#x2F; https:&#x2F;&#x2F;sourcegraph.com&#x2F;search https:&#x2F;&#x2F;github.com&#x2F;features&#x2F;code-search https:&#x2F;&#x2F;github.com&#x2F;madneal&#x2F;gshark ##git新搜索语法详解https:&#x2F;&#x2F;docs.github.com&#x2F;zh&#x2F;search-github&#x2F;github-code-searc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/github%E4%BB%A3%E7%A0%81%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7%E5%92%8C%E6%90%9C%E7%B4%A2%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="##推荐的工具https:&#x2F;&#x2F;grep.app&#x2F; https:&#x2F;&#x2F;sourcegraph.com&#x2F;search https:&#x2F;&#x2F;github.com&#x2F;features&#x2F;code-search https:&#x2F;&#x2F;github.com&#x2F;madneal&#x2F;gshark ##git新搜索语法详解https:&#x2F;&#x2F;docs.github.com&#x2F;zh&#x2F;search-github&#x2F;github-code-searc">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-01T14:17:01.304Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>##推荐的工具<br><a target="_blank" rel="noopener" href="https://grep.app/">https://grep.app/</a></p>
+<p><a target="_blank" rel="noopener" href="https://sourcegraph.com/search">https://sourcegraph.com/search</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/features/code-search">https://github.com/features/code-search</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/madneal/gshark">https://github.com/madneal/gshark</a></p>
+<p>##git新搜索语法详解<br><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax">https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax</a><br>一个没有限定符的裸词将与文件的内容或文件的路径匹配。</p>
+<p>例如，以下查询：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">http-<span class="hljs-built_in">push</span><br></code></pre></td></tr></table></figure>
+
+<p>上述查询与文件 <code>docs/http-push.txt</code> 匹配，即使该文件不包含术语 <code>http-push</code>。 该查询还与名为 <code>example.txt</code> 的文件匹配（如果文件包含术语 <code>http-push</code>）。</p>
+<p>可以输入多个用空格分隔的术语，以搜索满足这两个字词的文档。</p>
+<p>例如，以下查询：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">sparse <span class="hljs-keyword">index</span><br></code></pre></td></tr></table></figure>
+
+<p>搜索结果将包括包含术语 <code>sparse</code> 和 <code>index</code> 的所有文档，并按任意顺序排列。 例如，它将匹配包含 <code>SparseIndexVector</code> 的文件、带有短语 <code>index for sparse trees</code> 的文件，甚至匹配名为 <code>index.txt</code> 且包含术语 <code>sparse</code> 的文件。</p>
+<p>搜索多个用空格分隔的术语等效于搜索 <code>hello AND world</code>。 还支持其他布尔运算，例如 <code>hello OR world</code>。 有关布尔运算的详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-boolean-operations">使用布尔运算</a>”。</p>
+<p>代码搜索还支持搜索确切的字符串，包括空格。 有关详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#query-for-an-exact-match">查询完全匹配项</a>”。</p>
+<p>可以使用专用限定符（如 <code>repo:</code>、<code>language:</code> 和 <code>path:</code>）缩小代码搜索范围。 有关可在代码搜索中使用的限定符的详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-qualifiers">使用限定符</a>”。</p>
+<p>还可以通过用斜杠将表达式括起来，在搜索中使用正则表达式。 有关使用正则表达式的详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-regular-expressions">使用正则表达式</a>”。</p>
+<h2 id="查询完全匹配项"><a href="#查询完全匹配项" class="headerlink" title="查询完全匹配项"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#query-for-an-exact-match">查询完全匹配项</a></h2><p>要搜索确切的字符串（包括空格），可以用引号将字符串括起来。 例如：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;sparse index&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>若要搜索包含引号的短语，可以使用反斜杠对引号进行转义。 例如，若要查找确切的字符串 <code>name = &quot;tensorflow&quot;</code>，可以搜索：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><span class="hljs-string">&quot;name = <span class="hljs-subst">\&quot;</span>tensorflow<span class="hljs-subst">\&quot;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>还可以在限定符中使用带引号的字符串，例如：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-type">path</span>: git <span class="hljs-keyword">language</span>: &quot;protocol buffers&quot;<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用布尔运算"><a href="#使用布尔运算" class="headerlink" title="使用布尔运算"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-boolean-operations">使用布尔运算</a></h2><p>代码搜索支持布尔表达式。 可以使用运算符 <code>AND</code>、<code>OR</code> 和 <code>NOT</code> 来组合搜索词。</p>
+<p>默认情况下，用空格分隔的相邻术语等效于使用 <code>AND</code> 运算符。 例如，搜索查询 <code>sparse index</code> 与 <code>sparse AND index</code> 相同，这意味着搜索结果将包括包含术语 <code>sparse</code> 和 <code>index</code> 的所有文档，并按任意顺序排列。</p>
+<p>若要搜索包含某个或其他术语的文档，可以使用 <code>OR</code> 运算符。 例如，以下查询将匹配包含 <code>sparse</code> 或 <code>index</code> 的文档：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">sparse OR <span class="hljs-keyword">index</span><br></code></pre></td></tr></table></figure>
+
+<p>若要从搜索结果中排除文件，可以使用 <code>NOT</code> 运算符。 例如，若要排除 <code>__testing__</code> 目录中的文件，可以搜索：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-string">&quot;fatal error&quot;</span> NOT <span class="hljs-built_in">path</span>:__testing__<br></code></pre></td></tr></table></figure>
+
+<p>可以使用括号来表示更复杂的布尔表达式。 例如：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">(<span class="hljs-keyword">language</span>:<span class="hljs-keyword">ruby</span> OR <span class="hljs-keyword">language</span>:<span class="hljs-keyword">python</span>) AND NOT path:<span class="hljs-string">&quot;/tests/&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="使用限定符"><a href="#使用限定符" class="headerlink" title="使用限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-qualifiers">使用限定符</a></h2><p>可以使用专用关键字来限定搜索。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#repository-qualifier">存储库限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#organization-and-user-qualifiers">组织和用户限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#language-qualifier">语言限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#path-qualifier">路径限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#symbol-qualifier">符号限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#content-qualifier">内容限定符</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#is-qualifier">Is 限定符</a></li>
+</ul>
+<h3 id="存储库限定符"><a href="#存储库限定符" class="headerlink" title="存储库限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#repository-qualifier">存储库限定符</a></h3><p>若要在存储库中搜索，请使用 <code>repo:</code> 限定符。 必须提供完整的存储库名称，包括所有者。 例如：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">repo:</span>github-linguist/linguist<br></code></pre></td></tr></table></figure>
+
+<p>若要在一组存储库中搜索，可以将多个 <code>repo:</code> 限定符与布尔运算符 <code>OR</code> 组合在一起。 例如：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">repo:github-linguist<span class="hljs-regexp">/linguist OR repo:tree-sitter/</span>tree-sitter<br></code></pre></td></tr></table></figure>
+
+<p>注意：代码搜索目前不支持正则表达式或存储库名称的部分匹配，因此必须键入整个存储库名称（包括用户前缀）才能使用 <code>repo:</code> 限定符。</p>
+<h3 id="组织和用户限定符"><a href="#组织和用户限定符" class="headerlink" title="组织和用户限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#organization-and-user-qualifiers">组织和用户限定符</a></h3><p>若要搜索组织内的文件，请使用 <code>org:</code> 限定符。 例如：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">org:</span>github<br></code></pre></td></tr></table></figure>
+
+<p>若要搜索个人帐户内的文件，请使用 <code>user:</code> 限定符。 例如：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">user:</span>octocat<br></code></pre></td></tr></table></figure>
+
+<p>注意：代码搜索当前不支持组织或用户名的正则表达式或部分匹配，因此必须键入整个组织或用户名才能使用限定符。</p>
+<h3 id="语言限定符"><a href="#语言限定符" class="headerlink" title="语言限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#language-qualifier">语言限定符</a></h3><p>若要缩小到特定语言的范围，请使用 <code>language:</code> 限定符。 例如：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">language</span>:<span class="hljs-keyword">ruby</span> OR <span class="hljs-keyword">language</span>:cpp OR <span class="hljs-keyword">language</span>:csharp<br></code></pre></td></tr></table></figure>
+
+<p>有关支持的语言名称的完整列表，请参阅 <a target="_blank" rel="noopener" href="https://github.com/github-linguist/linguist">github-linguist&#x2F;linguist</a> 中的 <a target="_blank" rel="noopener" href="https://github.com/github-linguist/linguist/blob/master/lib/linguist/languages.yml">languages.yaml</a>。 如果你的首选语言不在列表中，则可以打开拉取请求来添加它。</p>
+<h3 id="路径限定符"><a href="#路径限定符" class="headerlink" title="路径限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#path-qualifier">路径限定符</a></h3><p>若要在文件路径中搜索，请使用 <code>path:</code> 限定符。 这将匹配包含文件路径中任意位置的术语的文件。 例如，若要查找路径中包含术语 <code>unit_tests</code> 的文件，请使用：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">path:</span>unit_tests<br></code></pre></td></tr></table></figure>
+
+<p>上面的查询将匹配 <code>src/unit_tests/my_test.py</code> 和 <code>src/docs/unit_tests.md</code>，因为它们都包含路径中某处的 <code>unit_test</code>。</p>
+<p>若要仅匹配特定文件名（而不是路径的一部分），可以使用正则表达式：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">path:<span class="hljs-regexp">/(^|\/)README\.md$/</span><br></code></pre></td></tr></table></figure>
+
+<p>请注意，文件名中的 <code>.</code> 是转义的，因为 <code>.</code> 对正则表达式具有特殊含义。 有关使用正则表达式的详细信息，请参阅“<a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-regular-expressions">使用正则表达式</a>”。</p>
+<p>还可以在 <code>path:</code> 限定符中使用一些有限的 glob 表达式。</p>
+<p>例如，若要搜索扩展名为 <code>txt</code> 的文件，可以使用：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">path:*.txt<br></code></pre></td></tr></table></figure>
+
+<p>若要在 <code>src</code> 目录中搜索 JavaScript 文件，可以使用：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">path:</span>src<span class="hljs-comment">/*.js</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>默认情况下，glob 表达式不会定位到路径的开头，因此上述表达式仍将与类似 <code>app/src/main.js</code> 的路径匹配。 但是，如果在表达式前面加上 <code>/</code>，它将定位到开头。 例如：</p>
+  <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">path:<span class="hljs-regexp">/src/</span>*.js<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>请注意，<code>*</code> 与 <code>/</code> 字符不匹配，因此对于上面的示例，所有结果都将是 <code>src</code> 目录的直接后代。 若要在子目录中匹配，以便结果包含深层嵌套文件（如 <code>/src/app/testing/utils/example.js</code>），可以使用 <code>**</code>。 例如：</p>
+  <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">```<br><span class="hljs-title">path:</span>/src<span class="hljs-comment">/**/</span>*.js<br>```<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>可以使用 <code>?</code> 全局字符。 例如，若要匹配路径 <code>file.aac</code> 或 <code>file.abc</code>，可以使用：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">path:*.a?c<br></code></pre></td></tr></table></figure>
+
+<p>若要搜索包含特殊字符（如 <code>*</code> 或 <code>?</code>）的文件名，只需使用带引号的字符串：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">path:</span><span class="hljs-string">&quot;file?&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>由于对带引号的字符串禁用 glob 表达式，因此上述查询将仅匹配包含文本字符串 <code>file?</code> 的路径。</p>
+<h3 id="符号限定符"><a href="#符号限定符" class="headerlink" title="符号限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#symbol-qualifier">符号限定符</a></h3><p>可以使用 <code>symbol:</code> 限定符在代码中搜索符号定义（例如函数或类定义）。 符号搜索基于使用开源 <a target="_blank" rel="noopener" href="https://github.com/tree-sitter">Tree-sitter</a> 分析程序生态系统解析代码，因此不需要额外的设置或生成工具集成。</p>
+<p>例如，若要搜索名为 <code>WithContext</code> 的符号：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">language</span>:<span class="hljs-keyword">go</span> symbo<span class="hljs-variable">l:WithContext</span><br></code></pre></td></tr></table></figure>
+
+<p>在某些语言中，可以使用前缀（例如类名的前缀）搜索符号。 例如，对于结构 <code>Maint</code> 上的方法 <code>deleteRows</code>，可以在使用 Go 时搜索 <code>symbol:Maint.deleteRows</code>，或在 Rust 中搜索 <code>symbol:Maint::deleteRows</code>。</p>
+<p>还可以将正则表达式与符号限定符一起使用。 例如，以下查询将查找人们在 Rust 中为 <code>String</code> 类型实现的转换：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">language:rust symbol:<span class="hljs-regexp">/^String::to_.*/</span><br></code></pre></td></tr></table></figure>
+
+<p>请注意，此限定符仅搜索定义而不搜索引用，并且尚未完全支持所有符号类型或语言。 以下语言支持符号提取。</p>
+<ul>
+<li>C#</li>
+<li>Python</li>
+<li>Go</li>
+<li>Java</li>
+<li>JavaScript</li>
+<li>TypeScript</li>
+<li>PHP</li>
+<li>协议缓冲区</li>
+<li>Ruby</li>
+<li>Rust</li>
+</ul>
+<p>我们正在努力添加对更多语言的支持。 如果想为这项工作做出贡献，可以在符号搜索基于的开源 <a target="_blank" rel="noopener" href="https://github.com/tree-sitter">Tree-sitter</a> 分析程序生态系统中添加对语言的支持。</p>
+<h3 id="内容限定符"><a href="#内容限定符" class="headerlink" title="内容限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#content-qualifier">内容限定符</a></h3><p>默认情况下，裸词搜索路径和文件内容。 若要将搜索限制为严格匹配文件内容而不是文件路径，请使用 <code>content:</code> 限定符。 例如：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">content:</span>README.md<br></code></pre></td></tr></table></figure>
+
+<p>此查询仅匹配包含术语 <code>README.md</code> 的文件，而不匹配名为 <code>README.md</code> 的文件。</p>
+<h3 id="Is-限定符"><a href="#Is-限定符" class="headerlink" title="Is 限定符"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#is-qualifier">Is 限定符</a></h3><p>若要根据存储属性进行筛选，可以使用 <code>is:</code> 限定符。 目前，<code>is:</code> 支持两个值：<code>archived</code>（将搜索限制为存档存储库）和 <code>fork</code>（将搜索限制为分叉存储库）。 例如：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">path:<span class="hljs-regexp">/^MIT.txt$/</span> is:archived<br></code></pre></td></tr></table></figure>
+
+<p>请注意，可以使用 <code>is:</code> 运算符反转 <code>NOT</code> 限定符。 若要搜索未存档的存储库，可以搜索：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">log4j NOT <span class="hljs-keyword">is</span>:archived<br></code></pre></td></tr></table></figure>
+
+<p>若要从结果中排除分支，可以搜索：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">log4j NOT <span class="hljs-keyword">is</span>:fork<br></code></pre></td></tr></table></figure>
+
+<h2 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a><a target="_blank" rel="noopener" href="https://docs.github.com/zh/search-github/github-code-search/understanding-github-code-search-syntax#using-regular-expressions">使用正则表达式</a></h2><p>代码搜索支持正则表达式来搜索代码中的模式。 通过用斜杠将正则表达式括起来，可以在裸搜索词以及许多限定符中使用正则表达式。</p>
+<p>例如，若要搜索正则表达式 <code>sparse.*index</code>，可以使用：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/sparse.*index/</span><br></code></pre></td></tr></table></figure>
+
+<p>请注意，必须在正则表达式中转义任何正斜杠。 例如，若要搜索 <code>App/src</code> 目录中的文件，可以使用：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/^App\/src\//</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/" class="category-chain-item">代码安全</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/代码安全/github代码搜索工具和搜索语法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/gshark%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E5%BC%80%E5%8F%91/hexo%E9%85%8D%E5%90%88githubpages%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E5%8D%9A%E5%AE%A2/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

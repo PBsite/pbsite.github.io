@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目录导航  云安全 – 攻击 AWS 在 AWS VPN 客户端中将权限升级为 SYSTEM AWS WorkSpaces 远程代码执行 CloudFormation 模板中的资源注入 下载和探索 AWS EBS 快照 CloudGoat ECS_EFS_Attack 演练 GKE Kubelet TLS Bootstrap 提权 武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证 Cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/%E4%BA%91%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3%E6%B8%97%E9%80%8F%E6%96%87%E7%AB%A0%E5%8F%8A%E5%B7%A5%E5%85%B7%20Cloud%20Security%20Attacks/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="目录导航  云安全 – 攻击 AWS 在 AWS VPN 客户端中将权限升级为 SYSTEM AWS WorkSpaces 远程代码执行 CloudFormation 模板中的资源注入 下载和探索 AWS EBS 快照 CloudGoat ECS_EFS_Attack 演练 GKE Kubelet TLS Bootstrap 提权 武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证 Cl">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2022/12/20100213.webp">
+<meta property="article:published_time" content="2023-08-01T14:17:01.327Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.ddosi.org/wp-content/uploads/2022/12/20100213.webp">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          54 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>目录导航</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BA%91%E5%AE%89%E5%85%A8_%E2%80%93_%E6%94%BB%E5%87%BB" title="云安全 – 攻击">云安全 – 攻击</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS" title="AWS">AWS</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%9C%A8_AWS_VPN_%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%AD%E5%B0%86%E6%9D%83%E9%99%90%E5%8D%87%E7%BA%A7%E4%B8%BA_SYSTEM" title="在 AWS VPN 客户端中将权限升级为 SYSTEM">在 AWS VPN 客户端中将权限升级为 SYSTEM</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_WorkSpaces_%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C" title="AWS WorkSpaces 远程代码执行">AWS WorkSpaces 远程代码执行</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#CloudFormation_%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90%E6%B3%A8%E5%85%A5" title="CloudFormation 模板中的资源注入">CloudFormation 模板中的资源注入</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%B8%8B%E8%BD%BD%E5%92%8C%E6%8E%A2%E7%B4%A2_AWS_EBS_%E5%BF%AB%E7%85%A7" title="下载和探索 AWS EBS 快照">下载和探索 AWS EBS 快照</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#CloudGoat_ECS_EFS_Attack_%E6%BC%94%E7%BB%83" title="CloudGoat ECS_EFS_Attack 演练">CloudGoat ECS_EFS_Attack 演练</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#GKE_Kubelet_TLS_Bootstrap_%E6%8F%90%E6%9D%83" title="GKE Kubelet TLS Bootstrap 提权">GKE Kubelet TLS Bootstrap 提权</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%AD%A6%E5%99%A8%E5%8C%96_AWS_ECS_%E4%BB%BB%E5%8A%A1%E5%AE%9A%E4%B9%89%E4%BB%A5%E7%AA%83%E5%8F%96%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%87%AD%E8%AF%81" title="武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证">武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#CloudGoat_AWS_%E5%9C%BA%E6%99%AF%E6%BC%94%E7%BB%83%EF%BC%9A%E2%80%9CEC2_SSRF%E2%80%9D" title="CloudGoat AWS 场景演练：“EC2_SSRF”">CloudGoat AWS 场景演练：“EC2_SSRF”</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%8E%A0%E5%A4%BA%E7%A1%AC%E7%BC%96%E7%A0%81%E6%9C%BA%E5%AF%86%E7%9A%84_AWS_ECS_%E4%BB%BB%E5%8A%A1%E5%AE%9A%E4%B9%89" title="掠夺硬编码机密的 AWS ECS 任务定义">掠夺硬编码机密的 AWS ECS 任务定义</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%9C%A8_AWS_%E4%B8%AD%E6%BB%A5%E7%94%A8_VPC_%E6%B5%81%E9%87%8F%E9%95%9C%E5%83%8F" title="在 AWS 中滥用 VPC 流量镜像">在 AWS 中滥用 VPC 流量镜像</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BD%BF%E7%94%A8%E4%BA%91%E5%AE%B9%E5%99%A8%E6%94%BB%E5%87%BB%E5%B7%A5%E5%85%B7_CCAT_%E5%88%A9%E7%94%A8_AWS_ECR_%E5%92%8C_ECS" title="使用云容器攻击工具 (CCAT) 利用 AWS ECR 和 ECS">使用云容器攻击工具 (CCAT) 利用 AWS ECR 和 ECS</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BD%BF%E7%94%A8_AWS_API_Gateway_%E7%BB%95%E8%BF%87%E5%9F%BA%E4%BA%8E_IP_%E7%9A%84%E5%B0%81%E9%94%81" title="使用 AWS API Gateway 绕过基于 IP 的封锁">使用 AWS API Gateway 绕过基于 IP 的封锁</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%9C%A8_AWS_%E4%B8%8A%E4%BD%BF%E7%94%A8_MFA_%E9%92%93%E9%B1%BC%E7%94%A8%E6%88%B7" title="在 AWS 上使用 MFA 钓鱼用户">在 AWS 上使用 MFA 钓鱼用户</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_IAM_%E7%89%B9%E6%9D%83%E5%8D%87%E7%BA%A7_%E2%80%93_%E6%96%B9%E6%B3%95%E5%92%8C%E7%BC%93%E8%A7%A3%E6%8E%AA%E6%96%BD" title="AWS IAM 特权升级 – 方法和缓解措施">AWS IAM 特权升级 – 方法和缓解措施</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95_AWS_%E5%AD%98%E5%82%A8%EF%BC%9A%E8%B8%A2_S3_%E5%AD%98%E5%82%A8%E6%A1%B6" title="渗透测试 AWS 存储：踢 S3 存储桶">渗透测试 AWS 存储：踢 S3 存储桶</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BA%91%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9_P2%EF%BC%9AAWS_CloudTrail_%E4%B8%AD%E7%9A%84_CSV_%E6%B3%A8%E5%85%A5" title="云安全风险 (P2)：AWS CloudTrail 中的 CSV 注入">云安全风险 (P2)：AWS CloudTrail 中的 CSV 注入</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%9A%84_AWS_%E9%85%8D%E7%BD%AE%E9%94%99%E8%AF%AF%EF%BC%9A%E5%9C%A8_Amazon_Go_%E4%B8%AD%E4%B8%8A%E4%BC%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6" title="亚马逊的 AWS 配置错误：在 Amazon Go 中上传任意文件">亚马逊的 AWS 配置错误：在 Amazon Go 中上传任意文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%9D%83%E9%99%90%E5%8D%87%E7%BA%A7%E6%94%BB%E5%87%BB%EF%BC%9A%E6%94%BB%E5%87%BB_AWS_IAM_%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE" title="权限升级攻击：攻击 AWS IAM 权限错误配置">权限升级攻击：攻击 AWS IAM 权限错误配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#IAM_%E6%98%93%E5%8F%97%E6%94%BB%E5%87%BB_%E2%80%93_AWS_IAM_%E7%89%B9%E6%9D%83%E5%8D%87%E7%BA%A7%E6%B8%B8%E4%B9%90%E5%9C%BA" title="IAM 易受攻击 – AWS IAM 特权升级游乐场">IAM 易受攻击 – AWS IAM 特权升级游乐场</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%80%9A%E5%BE%80%E4%BA%91%E7%9A%84%E8%87%AA%E5%8A%A8%E6%89%B6%E6%A2%AF%EF%BC%9AAWS_%E4%B8%AD%E7%9A%84_5_%E4%B8%AA_Privesc_%E6%94%BB%E5%87%BB%E5%90%91%E9%87%8F" title="通往云的自动扶梯：AWS 中的 5 个 Privesc 攻击向量">通往云的自动扶梯：AWS 中的 5 个 Privesc 攻击向量</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%98%93%E5%8F%97%E6%94%BB%E5%87%BB%E7%9A%84_AWS_Lambda_%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E4%BA%91%E6%94%BB%E5%87%BB%E4%B8%AD%E7%9A%84%E5%88%9D%E5%A7%8B%E8%AE%BF%E9%97%AE" title="易受攻击的 AWS Lambda 函数——云攻击中的初始访问">易受攻击的 AWS Lambda 函数——云攻击中的初始访问</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%80%9A%E8%BF%87_Amazon_Web_Services_%E7%9A%84_EC2_%E8%BF%9B%E8%A1%8C%E7%89%B9%E6%9D%83%E5%8D%87%E7%BA%A7%E6%94%BB%E5%87%BB" title="通过 Amazon Web Services 的 EC2 进行特权升级攻击">通过 Amazon Web Services 的 EC2 进行特权升级攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_%E6%94%BB%E5%87%BB" title="AWS 攻击">AWS 攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_%E5%BD%B1%E5%AD%90%E7%AE%A1%E7%90%86%E5%91%98" title="AWS 影子管理员">AWS 影子管理员</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%80%9A%E8%BF%87_API_%E5%AF%86%E9%92%A5%E8%8E%B7%E5%BE%97_AWS_%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90" title="通过 API 密钥获得 AWS 控制台访问权限">通过 API 密钥获得 AWS 控制台访问权限</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%B8%BA_EC2_%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA_AWS_AMI_%E5%B9%B6%E5%A4%8D%E5%88%B6%E5%88%B0%E5%85%B6%E4%BB%96%E5%8C%BA%E5%9F%9F" title="为 EC2 自动创建 AWS AMI 并复制到其他区域">为 EC2 自动创建 AWS AMI 并复制到其他区域</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Instance_Connect_%E2%80%93_%E5%B0%86_SSH_%E5%AF%86%E9%92%A5%E6%8E%A8%E9%80%81%E5%88%B0_EC2_%E5%AE%9E%E4%BE%8B" title="Instance Connect – 将 SSH 密钥推送到 EC2 实例">Instance Connect – 将 SSH 密钥推送到 EC2 实例</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%BB%84%E9%87%91_SAML_%E6%94%BB%E5%87%BB" title="黄金 SAML 攻击">黄金 SAML 攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BB%8E%E4%BA%91%E4%B8%AD%E7%9A%84%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8%E7%AA%83%E5%8F%96%E5%93%88%E5%B8%8C" title="从云中的域控制器窃取哈希">从云中的域控制器窃取哈希</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_PenTest_%E6%96%B9%E6%B3%95%E8%AE%BA" title="AWS PenTest 方法论">AWS PenTest 方法论</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#CloudGoat_%E5%AE%98%E6%96%B9%E6%94%BB%E7%95%A5%E7%B3%BB%E5%88%97%EF%BC%9A%E2%80%9Crce_web_app%E2%80%9D" title="CloudGoat 官方攻略系列：“rce_web_app”">CloudGoat 官方攻略系列：“rce_web_app”</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure" title="Azure">Azure</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#GKE_Kubelet_TLS_Bootstrap_%E6%8F%90%E6%9D%83-2" title="GKE Kubelet TLS Bootstrap 提权">GKE Kubelet TLS Bootstrap 提权</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E4%BA%91%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%EF%BC%88%E7%AC%AC_1_%E9%83%A8%E5%88%86%EF%BC%89%EF%BC%9AAzure_CSV_%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E" title="云安全风险（第 1 部分）：Azure CSV 注入漏洞">云安全风险（第 1 部分）：Azure CSV 注入漏洞</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#SaaS_%E5%85%AC%E5%8F%B8%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%9A%E5%88%A9%E7%94%A8_Infosec_%E5%AE%9E%E7%8E%B0%E5%95%86%E4%B8%9A%E4%BB%B7%E5%80%BC" title="SaaS 公司的安全性：利用 Infosec 实现商业价值">SaaS 公司的安全性：利用 Infosec 实现商业价值</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%B8%B8%E8%A7%81%E7%9A%84_Azure_%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E5%92%8C%E9%94%99%E8%AF%AF%E9%85%8D%E7%BD%AE" title="常见的 Azure 安全漏洞和错误配置">常见的 Azure 安全漏洞和错误配置</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%9E%9A%E4%B8%BE%E6%9C%89%E6%95%88%E7%9A%84%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6" title="枚举有效的电子邮件">枚举有效的电子邮件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%9E%9A%E4%B8%BE_Azure_%E5%AD%90%E5%9F%9F" title="枚举 Azure 子域">枚举 Azure 子域</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_%E6%94%BB%E5%87%BB" title="Azure 攻击">Azure 攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_Active_Directory_%E5%B8%90%E6%88%B7%E6%9E%9A%E4%B8%BE" title="Azure Active Directory 帐户枚举">Azure Active Directory 帐户枚举</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%BB%A5%E7%94%A8_Microsoft_%E7%9A%84_Azure_%E5%9F%9F%E6%9D%A5%E6%89%98%E7%AE%A1%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB" title="滥用 Microsoft 的 Azure 域来托管网络钓鱼攻击">滥用 Microsoft 的 Azure 域来托管网络钓鱼攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%98%B2%E5%BE%A1_EvilGinx2_MFA_%E7%BB%95%E8%BF%87" title="防御 EvilGinx2 MFA 绕过">防御 EvilGinx2 MFA 绕过</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#365-Stealer_%E7%AE%80%E4%BB%8B_%E2%80%93_%E7%90%86%E8%A7%A3%E5%92%8C%E6%89%A7%E8%A1%8C%E9%9D%9E%E6%B3%95%E8%AE%B8%E5%8F%AF%E6%8E%88%E4%BA%88%E6%94%BB%E5%87%BB" title="365-Stealer 简介 – 理解和执行非法许可授予攻击">365-Stealer 简介 – 理解和执行非法许可授予攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_AD_%E5%AF%86%E7%A0%81%E5%96%B7%E6%B4%92%EF%BC%9B%E4%BB%8E%E6%94%BB%E5%87%BB%E5%88%B0%E6%A3%80%E6%B5%8B%EF%BC%88%E5%92%8C%E9%A2%84%E9%98%B2%EF%BC%89%E3%80%82" title="Azure AD 密码喷洒；从攻击到检测（和预防）。">Azure AD 密码喷洒；从攻击到检测（和预防）。</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E9%80%9A%E8%BF%87_PASS-THE-PRT_%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E5%88%B0%E4%BA%91%E7%AB%AF" title="通过 PASS-THE-PRT 横向移动到云端">通过 PASS-THE-PRT 横向移动到云端</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_AD_%E9%80%9A%E8%BF%87%E8%AF%81%E4%B9%A6" title="Azure AD 通过证书">Azure AD 通过证书</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87_SSH_%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%89%B9%E5%AE%9A%E7%9A%84_Azure_Web_App_%E5%AE%9E%E4%BE%8B" title="如何通过 SSH 连接到特定的 Azure Web App 实例">如何通过 SSH 连接到特定的 Azure Web App 实例</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%94%BB%E5%87%BB_Azure%E3%80%81Azure_AD_%E5%B9%B6%E4%BB%8B%E7%BB%8D_PowerZure" title="攻击 Azure、Azure AD 并介绍 PowerZure">攻击 Azure、Azure AD 并介绍 PowerZure</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E6%9C%AA%E6%A3%80%E6%B5%8B%E5%88%B0%E7%9A%84_Azure_Active_Directory_%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E6%94%BB%E5%87%BB" title="未检测到的 Azure Active Directory 暴力破解攻击">未检测到的 Azure Active Directory 暴力破解攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_AD_%E5%A6%82%E4%BD%95%E5%AE%B9%E6%98%93%E5%8F%97%E5%88%B0%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%92%8C_DOS_%E6%94%BB%E5%87%BB" title="Azure AD 如何容易受到暴力破解和 DOS 攻击">Azure AD 如何容易受到暴力破解和 DOS 攻击</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#%E5%A6%82%E4%BD%95%E5%9C%A8_Azure_%E5%92%8C_O365_%E4%B8%AD%E7%BB%95%E8%BF%87_MFA" title="如何在 Azure 和 O365 中绕过 MFA">如何在 Azure 和 O365 中绕过 MFA</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#AWS_%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7" title="AWS 安全工具">AWS 安全工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/cloud-security-attacks/#Azure_%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7" title="Azure 安全工具">Azure 安全工具</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="云安全-–-攻击"><a href="#云安全-–-攻击" class="headerlink" title="云安全 – 攻击"></a>云安全 – 攻击</h1><h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws"></a>AWS</h2><h3 id="在-AWS-VPN-客户端中将权限升级为-SYSTEM"><a href="#在-AWS-VPN-客户端中将权限升级为-SYSTEM" class="headerlink" title="在 AWS VPN 客户端中将权限升级为 SYSTEM"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#privilege-escalation-to-system-in-aws-vpn-client"></a>在 AWS VPN 客户端中将权限升级为 SYSTEM</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cve-2022-25165-aws-vpn-client/">https://rhinosecuritylabs.com/aws/cve-2022-25165-aws-vpn-client/</a></li>
+</ul>
+<h3 id="AWS-WorkSpaces-远程代码执行"><a href="#AWS-WorkSpaces-远程代码执行" class="headerlink" title="AWS WorkSpaces 远程代码执行"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-workspaces-remote-code-execution"></a>AWS WorkSpaces 远程代码执行</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cve-2021-38112-aws-workspaces-rce/">aws&#x2F;cve-2021-38112-aws-workspaces-rce&#x2F;</a></li>
+</ul>
+<h3 id="CloudFormation-模板中的资源注入"><a href="#CloudFormation-模板中的资源注入" class="headerlink" title="CloudFormation 模板中的资源注入"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#resource-injection-in-cloudformation-templates"></a>CloudFormation 模板中的资源注入</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cloud-malware-cloudformation-injection/">rhinosecuritylabs.com&#x2F;aws&#x2F;cloud-malware-cloudformation-injection&#x2F;</a></li>
+</ul>
+<h3 id="下载和探索-AWS-EBS-快照"><a href="#下载和探索-AWS-EBS-快照" class="headerlink" title="下载和探索 AWS EBS 快照"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#downloading-and-exploring-aws-ebs-snapshots"></a>下载和探索 AWS EBS 快照</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/exploring-aws-ebs-snapshots/">https://rhinosecuritylabs.com/aws/exploring-aws-ebs-snapshots/</a></li>
+</ul>
+<h3 id="CloudGoat-ECS-EFS-Attack-演练"><a href="#CloudGoat-ECS-EFS-Attack-演练" class="headerlink" title="CloudGoat ECS_EFS_Attack 演练"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#cloudgoat-ecs_efs_attack-walkthrough"></a>CloudGoat ECS_EFS_Attack 演练</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/cloudgoat-aws-ecs_efs_attack/">cloud-security&#x2F;cloudgoat-aws-ecs_efs_attack&#x2F;</a></li>
+</ul>
+<h3 id="GKE-Kubelet-TLS-Bootstrap-提权"><a href="#GKE-Kubelet-TLS-Bootstrap-提权" class="headerlink" title="GKE Kubelet TLS Bootstrap 提权"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#gke-kubelet-tls-bootstrap-privilege-escalation"></a>GKE Kubelet TLS Bootstrap 提权</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/kubelet-tls-bootstrap-privilege-escalation/">cloud-security&#x2F;kubelet-tls-bootstrap-privilege-escalation&#x2F;</a></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/12/20100213.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2022/12/20100213.webp"><img src="https://www.ddosi.org/wp-content/uploads/2022/12/20100213.webp" srcset="/img/loading.gif" lazyload alt="云安全相关渗透文章及工具 Cloud Security Attacks"></a></p>
+<h3 id="武器化-AWS-ECS-任务定义以窃取正在运行的容器中的凭证"><a href="#武器化-AWS-ECS-任务定义以窃取正在运行的容器中的凭证" class="headerlink" title="武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#weaponizing-aws-ecs-task-definitions-to-steal-credentials-from-running-containers"></a>武器化 AWS ECS 任务定义以窃取正在运行的容器中的凭证</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/weaponizing-ecs-task-definitions-steal-credentials-running-containers/">weaponizing-ecs-task-definitions-steal-credentials-running-containers&#x2F;</a></li>
+</ul>
+<h3 id="CloudGoat-AWS-场景演练：“EC2-SSRF”"><a href="#CloudGoat-AWS-场景演练：“EC2-SSRF”" class="headerlink" title="CloudGoat AWS 场景演练：“EC2_SSRF”"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#cloudgoat-aws-scenario-walkthrough-ec2_ssrf"></a>CloudGoat AWS 场景演练：“EC2_SSRF”</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/cloudgoat-aws-scenario-ec2_ssrf/">cloud-security&#x2F;cloudgoat-aws-scenario-ec2_ssrf&#x2F;</a></li>
+</ul>
+<h3 id="掠夺硬编码机密的-AWS-ECS-任务定义"><a href="#掠夺硬编码机密的-AWS-ECS-任务定义" class="headerlink" title="掠夺硬编码机密的 AWS ECS 任务定义"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#pillaging-aws-ecs-task-definitions-for-hardcoded-secrets"></a>掠夺硬编码机密的 AWS ECS 任务定义</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/pillaging-ecs-task-definitions-two-new-pacu-modules/">aws&#x2F;pillaging-ecs-task-definitions-two-new-pacu-modules&#x2F;</a></li>
+</ul>
+<h3 id="在-AWS-中滥用-VPC-流量镜像"><a href="#在-AWS-中滥用-VPC-流量镜像" class="headerlink" title="在 AWS 中滥用 VPC 流量镜像"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#abusing-vpc-traffic-mirroring-in-aws"></a>在 AWS 中滥用 VPC 流量镜像</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/abusing-vpc-traffic-mirroring-in-aws/">https://rhinosecuritylabs.com/aws/abusing-vpc-traffic-mirroring-in-aws/</a></li>
+</ul>
+<h3 id="使用云容器攻击工具-CCAT-利用-AWS-ECR-和-ECS"><a href="#使用云容器攻击工具-CCAT-利用-AWS-ECR-和-ECS" class="headerlink" title="使用云容器攻击工具 (CCAT) 利用 AWS ECR 和 ECS"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#exploiting-aws-ecr-and-ecs-with-the-cloud-container-attack-tool-ccat"></a>使用云容器攻击工具 (CCAT) 利用 AWS ECR 和 ECS</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cloud-container-attack-tool/">https://rhinosecuritylabs.com/aws/cloud-container-attack-tool/</a></li>
+</ul>
+<h3 id="使用-AWS-API-Gateway-绕过基于-IP-的封锁"><a href="#使用-AWS-API-Gateway-绕过基于-IP-的封锁" class="headerlink" title="使用 AWS API Gateway 绕过基于 IP 的封锁"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#bypassing-ip-based-blocking-with-aws-api-gateway"></a>使用 AWS API Gateway 绕过基于 IP 的封锁</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/bypassing-ip-based-blocking-aws/">https://rhinosecuritylabs.com/aws/bypassing-ip-based-blocking-aws/</a></li>
+</ul>
+<h3 id="在-AWS-上使用-MFA-钓鱼用户"><a href="#在-AWS-上使用-MFA-钓鱼用户" class="headerlink" title="在 AWS 上使用 MFA 钓鱼用户"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#phishing-users-with-mfa-on-aws"></a>在 AWS 上使用 MFA 钓鱼用户</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/mfa-phishing-on-aws/">https://rhinosecuritylabs.com/aws/mfa-phishing-on-aws/</a></li>
+</ul>
+<h3 id="AWS-IAM-特权升级-–-方法和缓解措施"><a href="#AWS-IAM-特权升级-–-方法和缓解措施" class="headerlink" title="AWS IAM 特权升级 – 方法和缓解措施"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-iam-privilege-escalation--methods-and-mitigation"></a>AWS IAM 特权升级 – 方法和缓解措施</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation/">aws&#x2F;aws-privilege-escalation-methods-mitigation&#x2F;</a></li>
+</ul>
+<h3 id="渗透测试-AWS-存储：踢-S3-存储桶"><a href="#渗透测试-AWS-存储：踢-S3-存储桶" class="headerlink" title="渗透测试 AWS 存储：踢 S3 存储桶"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#penetration-testing-aws-storage-kicking-the-s3-bucket"></a>渗透测试 AWS 存储：踢 S3 存储桶</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/penetration-testing/penetration-testing-aws-storage/">penetration-testing&#x2F;penetration-testing-aws-storage&#x2F;</a></li>
+</ul>
+<h3 id="云安全风险-P2-：AWS-CloudTrail-中的-CSV-注入"><a href="#云安全风险-P2-：AWS-CloudTrail-中的-CSV-注入" class="headerlink" title="云安全风险 (P2)：AWS CloudTrail 中的 CSV 注入"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#cloud-security-risks-p2-csv-injection-in-aws-cloudtrail"></a>云安全风险 (P2)：AWS CloudTrail 中的 CSV 注入</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cloud-security-csv-injection-aws-cloudtrail/">https://rhinosecuritylabs.com/aws/</a><br>  <a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cloud-security-csv-injection-aws-cloudtrail/">cloud-security-csv-injection-aws-cloudtrail&#x2F;</a></li>
+</ul>
+<h3 id="亚马逊的-AWS-配置错误：在-Amazon-Go-中上传任意文件"><a href="#亚马逊的-AWS-配置错误：在-Amazon-Go-中上传任意文件" class="headerlink" title="亚马逊的 AWS 配置错误：在 Amazon Go 中上传任意文件"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#amazons-aws-misconfiguration-arbitrary-files-upload-in-amazon-go"></a>亚马逊的 AWS 配置错误：在 Amazon Go 中上传任意文件</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/amazon-aws-misconfiguration-amazon-go/">amazon-aws-misconfiguration-amazon-go&#x2F;</a></li>
+</ul>
+<h3 id="权限升级攻击：攻击-AWS-IAM-权限错误配置"><a href="#权限升级攻击：攻击-AWS-IAM-权限错误配置" class="headerlink" title="权限升级攻击：攻击 AWS IAM 权限错误配置"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#privilege-escalation-attack--attacking-aws-iam-permission-misconfigurations"></a>权限升级攻击：攻击 AWS IAM 权限错误配置</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://payatu.com/blog/mayank.arora/iam_privilege_escalation_attack">https://payatu.com/blog/mayank.arora/iam_privilege_escalation_attack</a></li>
+</ul>
+<h3 id="IAM-易受攻击-–-AWS-IAM-特权升级游乐场"><a href="#IAM-易受攻击-–-AWS-IAM-特权升级游乐场" class="headerlink" title="IAM 易受攻击 – AWS IAM 特权升级游乐场"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#iam-vulnerable---an-aws-iam-privilege-escalation-playground"></a>IAM 易受攻击 – AWS IAM 特权升级游乐场</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://bishopfox.com/blog/aws-iam-privilege-escalation-playground">https://bishopfox.com/blog/aws-iam-privilege-escalation-playground</a></li>
+</ul>
+<h3 id="通往云的自动扶梯：AWS-中的-5-个-Privesc-攻击向量"><a href="#通往云的自动扶梯：AWS-中的-5-个-Privesc-攻击向量" class="headerlink" title="通往云的自动扶梯：AWS 中的 5 个 Privesc 攻击向量"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#escalator-to-the-cloud-5-privesc-attack-vectors-in-aws"></a>通往云的自动扶梯：AWS 中的 5 个 Privesc 攻击向量</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://bishopfox.com/blog/5-privesc-attack-vectors-in-aws">https://bishopfox.com/blog/5-privesc-attack-vectors-in-aws</a></li>
+</ul>
+<h3 id="易受攻击的-AWS-Lambda-函数——云攻击中的初始访问"><a href="#易受攻击的-AWS-Lambda-函数——云攻击中的初始访问" class="headerlink" title="易受攻击的 AWS Lambda 函数——云攻击中的初始访问"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#vulnerable-aws-lambda-function--initial-access-in-cloud-attacks"></a>易受攻击的 AWS Lambda 函数——云攻击中的初始访问</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://sysdig.com/blog/exploit-mitigate-aws-lambdas-mitre/">https://sysdig.com/blog/exploit-mitigate-aws-lambdas-mitre/</a></li>
+</ul>
+<h3 id="通过-Amazon-Web-Services-的-EC2-进行特权升级攻击"><a href="#通过-Amazon-Web-Services-的-EC2-进行特权升级攻击" class="headerlink" title="通过 Amazon Web Services 的 EC2 进行特权升级攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#inside-a-privilege-escalation-attack-via-amazon-web-services-ec2"></a>通过 Amazon Web Services 的 EC2 进行特权升级攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://thenewstack.io/inside-a-privilege-escalation-attack-via-amazon-web-services-ec2/">inside-a-privilege-escalation-attack-via-amazon-web-services-ec2&#x2F;</a></li>
+</ul>
+<h3 id="AWS-攻击"><a href="#AWS-攻击" class="headerlink" title="AWS 攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-attacks"></a>AWS 攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://pentestbook.six2dez.com/enumeration/cloud/aws">https://pentestbook.six2dez.com/enumeration/cloud/aws</a></li>
+</ul>
+<h3 id="AWS-影子管理员"><a href="#AWS-影子管理员" class="headerlink" title="AWS 影子管理员"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-shadow-admin"></a>AWS 影子管理员</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.admin-magazine.com/Archive/2021/63/Shadow-admin-permissions-and-your-AWS-account">Shadow-admin-permissions-and-your-AWS-account</a></li>
+</ul>
+<h3 id="通过-API-密钥获得-AWS-控制台访问权限"><a href="#通过-API-密钥获得-AWS-控制台访问权限" class="headerlink" title="通过 API 密钥获得 AWS 控制台访问权限"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#gaining-aws-console-access-via-api-keys"></a>通过 API 密钥获得 AWS 控制台访问权限</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.netspi.com/blog/technical/gaining-aws-console-access-via-api-keys/">gaining-aws-console-access-via-api-keys&#x2F;</a></li>
+</ul>
+<h3 id="为-EC2-自动创建-AWS-AMI-并复制到其他区域"><a href="#为-EC2-自动创建-AWS-AMI-并复制到其他区域" class="headerlink" title="为 EC2 自动创建 AWS AMI 并复制到其他区域"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#automate-aws-ami-creation-for-ec2-and-copy-to-other-region"></a>为 EC2 自动创建 AWS AMI 并复制到其他区域</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://dheeraj3choudhary.com/automate-aws-ami-creation-for-ec2-and-copy-to-other-region-or-disaster-recovery">automate-aws-ami-creation-for-ec2-and</a><br>  <a target="_blank" rel="noopener" href="https://dheeraj3choudhary.com/automate-aws-ami-creation-for-ec2-and-copy-to-other-region-or-disaster-recovery">-copy-to-other-region-or-disaster-recovery</a></li>
+</ul>
+<h3 id="Instance-Connect-–-将-SSH-密钥推送到-EC2-实例"><a href="#Instance-Connect-–-将-SSH-密钥推送到-EC2-实例" class="headerlink" title="Instance Connect – 将 SSH 密钥推送到 EC2 实例"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#instance-connect---push-an-ssh-key-to-ec2-instance"></a>Instance Connect – 将 SSH 密钥推送到 EC2 实例</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://cloudonaut.io/connect-to-your-ec2-instance-using-ssh-the-modern-way/">connect-to-your-ec2-instance-using-ssh-the-modern-way&#x2F;</a></li>
+</ul>
+<h3 id="黄金-SAML-攻击"><a href="#黄金-SAML-攻击" class="headerlink" title="黄金 SAML 攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#golden-saml-attack"></a>黄金 SAML 攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cyberark.com/resources/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-to-cloud-apps">golden-saml-newly-discovered-attack-technique-forges</a><br>  <a target="_blank" rel="noopener" href="https://www.cyberark.com/resources/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-to-cloud-apps">-authentication-to-cloud-apps</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.sygnia.co/detection-and-hunting-of-golden-saml-attack">blog.sygnia.co&#x2F;detection-and-hunting-of-golden-saml-attack</a></li>
+</ul>
+<h3 id="从云中的域控制器窃取哈希"><a href="#从云中的域控制器窃取哈希" class="headerlink" title="从云中的域控制器窃取哈希"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#stealing-hashes-from-domain-controllers-in-the-cloud"></a>从云中的域控制器窃取哈希</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@_StaticFlow_/cloudcopy-stealing-hashes-from-domain-controllers-in-the-cloud-c55747f0913">cloudcopy-stealing-hashes-from-domain-controllers-in-the-cloud</a></li>
+</ul>
+<h3 id="AWS-PenTest-方法论"><a href="#AWS-PenTest-方法论" class="headerlink" title="AWS PenTest 方法论"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-pentest-methodology"></a>AWS PenTest 方法论</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Cloud%20-%20AWS%20Pentest.md">Methodology%20and%20Resources&#x2F;Cloud%20-%20AWS%20Pentest</a></li>
+</ul>
+<h3 id="CloudGoat-官方攻略系列：“rce-web-app”"><a href="#CloudGoat-官方攻略系列：“rce-web-app”" class="headerlink" title="CloudGoat 官方攻略系列：“rce_web_app”"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#cloudgoat-official-walkthrough-series-rce_web_app"></a>CloudGoat 官方攻略系列：“rce_web_app”</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/aws/cloudgoat-walkthrough-rce_web_app/">https://rhinosecuritylabs.com/aws/cloudgoat-walkthrough-rce_web_app&#x2F;</a></li>
+</ul>
+<h2 id="Azure"><a href="#Azure" class="headerlink" title="Azure"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure"></a>Azure</h2><h3 id="GKE-Kubelet-TLS-Bootstrap-提权-1"><a href="#GKE-Kubelet-TLS-Bootstrap-提权-1" class="headerlink" title="GKE Kubelet TLS Bootstrap 提权"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#gke-kubelet-tls-bootstrap-privilege-escalation-1"></a>GKE Kubelet TLS Bootstrap 提权</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/kubelet-tls-bootstrap-privilege-escalation/">cloud-security&#x2F;kubelet-tls-bootstrap-privilege-escalation&#x2F;</a></li>
+</ul>
+<h3 id="云安全风险（第-1-部分）：Azure-CSV-注入漏洞"><a href="#云安全风险（第-1-部分）：Azure-CSV-注入漏洞" class="headerlink" title="云安全风险（第 1 部分）：Azure CSV 注入漏洞"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#cloud-security-risks-part-1-azure-csv-injection-vulnerability"></a>云安全风险（第 1 部分）：Azure CSV 注入漏洞</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/azure/cloud-security-risks-part-1-azure-csv-injection-vulnerability/">cloud-security-risks-part-1-azure-csv-injection-vulnerability&#x2F;</a></li>
+</ul>
+<h3 id="SaaS-公司的安全性：利用-Infosec-实现商业价值"><a href="#SaaS-公司的安全性：利用-Infosec-实现商业价值" class="headerlink" title="SaaS 公司的安全性：利用 Infosec 实现商业价值"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#security-for-saas-companies-leveraging-infosec-for-business-value"></a>SaaS 公司的安全性：利用 Infosec 实现商业价值</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/security-saas-companies-leveraging-infosec-business-value/">security-saas-companies-leveraging-infosec-business-value&#x2F;</a></li>
+</ul>
+<h3 id="常见的-Azure-安全漏洞和错误配置"><a href="#常见的-Azure-安全漏洞和错误配置" class="headerlink" title="常见的 Azure 安全漏洞和错误配置"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#common-azure-security-vulnerabilities-and-misconfigurations"></a>常见的 Azure 安全漏洞和错误配置</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/common-azure-security-vulnerabilities/">rhinosecuritylabs.com&#x2F;cloud-security&#x2F;</a><br>  <a target="_blank" rel="noopener" href="https://rhinosecuritylabs.com/cloud-security/common-azure-security-vulnerabilities/">common-azure-security-vulnerabilities&#x2F;</a></li>
+</ul>
+<h3 id="枚举有效的电子邮件"><a href="#枚举有效的电子邮件" class="headerlink" title="枚举有效的电子邮件"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#enumerate-valid-emails"></a>枚举有效的电子邮件</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://zigmax.net/enumerate-valid-emails-accounts%EF%BF%BC/">https://zigmax.net/enumerate-valid-emails-accounts%EF%BF%BC/</a></li>
+</ul>
+<h3 id="枚举-Azure-子域"><a href="#枚举-Azure-子域" class="headerlink" title="枚举 Azure 子域"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#enumerate-azure-subdomains"></a>枚举 Azure 子域</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.netspi.com/blog/technical/cloud-penetration-testing/enumerating-azure-services/">cloud-penetration-testing&#x2F;enumerating-azure-services&#x2F;</a></li>
+<li><a target="_blank" rel="noopener" href="https://m0chan.github.io/2019/12/16/Subdomain-Takeover-Azure-CDN.html">Subdomain-Takeover-Azure-CDN.html</a></li>
+</ul>
+<h3 id="Azure-攻击"><a href="#Azure-攻击" class="headerlink" title="Azure 攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure-attacks"></a>Azure 攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://pentestbook.six2dez.com/enumeration/cloud/azure">https://pentestbook.six2dez.com/enumeration/cloud/azure</a></li>
+</ul>
+<h3 id="Azure-Active-Directory-帐户枚举"><a href="#Azure-Active-Directory-帐户枚举" class="headerlink" title="Azure Active Directory 帐户枚举"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure-active-directory-account-enumeration"></a>Azure Active Directory 帐户枚举</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://helloitsliam.com/2021/11/18/azure-active-directory-account-enumeration/">azure-active-directory-account-enumeration&#x2F;</a></li>
+</ul>
+<h3 id="滥用-Microsoft-的-Azure-域来托管网络钓鱼攻击"><a href="#滥用-Microsoft-的-Azure-域来托管网络钓鱼攻击" class="headerlink" title="滥用 Microsoft 的 Azure 域来托管网络钓鱼攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#abusing-microsofts-azure-domains-to-host-phishing-attacks"></a>滥用 Microsoft 的 Azure 域来托管网络钓鱼攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.zscaler.fr/blogs/security-research/abusing-microsofts-azure-domains-host-phishing-attacks">abusing-microsofts-azure-domains-host-phishing-attacks</a></li>
+</ul>
+<h3 id="防御-EvilGinx2-MFA-绕过"><a href="#防御-EvilGinx2-MFA-绕过" class="headerlink" title="防御 EvilGinx2 MFA 绕过"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#defending-against-the-evilginx2-mfa-bypass"></a>防御 EvilGinx2 MFA 绕过</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad/defending-against-the-evilginx2-mfa-bypass/m-p/501719">microsoft-entra-azure-ad&#x2F;defending-against</a><br>  <a target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad/defending-against-the-evilginx2-mfa-bypass/m-p/501719">-the-evilginx2-mfa-bypass&#x2F;mp&#x2F;501719</a></li>
+<li><a target="_blank" rel="noopener" href="https://thecloudtechnologist.com/2019/04/29/defending-against-evilginx2-in-office-365/">defending-against-evilginx2-in-office-365&#x2F;</a></li>
+</ul>
+<h3 id="365-Stealer-简介-–-理解和执行非法许可授予攻击"><a href="#365-Stealer-简介-–-理解和执行非法许可授予攻击" class="headerlink" title="365-Stealer 简介 – 理解和执行非法许可授予攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#introduction-to-365-stealer---understanding-and-executing-the-illicit-consent-grant-attack"></a>365-Stealer 简介 – 理解和执行非法许可授予攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.alteredsecurity.com/post/introduction-to-365-stealer">https://www.alteredsecurity.com/post/introduction-to-365-stealer</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cloud-architekt.net/detection-and-mitigation-consent-grant-attacks-azuread/">detection-and-mitigation-consent-grant-attacks-azuread&#x2F;</a></li>
+</ul>
+<h3 id="Azure-AD-密码喷洒；从攻击到检测（和预防）。"><a href="#Azure-AD-密码喷洒；从攻击到检测（和预防）。" class="headerlink" title="Azure AD 密码喷洒；从攻击到检测（和预防）。"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure-ad-password-spray-from-attack-to-detection-and-prevention"></a>Azure AD 密码喷洒；从攻击到检测（和预防）。</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://derkvanderwoude.medium.com/password-spray-from-attack-to-detection-and-prevention-87c48cede0c0">password-spray-from-attack-to-detection-and-prevention-87c48cede0c0</a></li>
+<li><a target="_blank" rel="noopener" href="https://jeffreyappel.nl/protecting-against-password-spray-attacks-with-azure-sentinel-and-azure-ad/">protecting-against-password-spray-attacks-with-azure-sentinel-and-azure-ad&#x2F;</a></li>
+</ul>
+<h3 id="通过-PASS-THE-PRT-横向移动到云端"><a href="#通过-PASS-THE-PRT-横向移动到云端" class="headerlink" title="通过 PASS-THE-PRT 横向移动到云端"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#lateral-movement-to-the-cloud-with-pass-the-prt"></a>通过 PASS-THE-PRT 横向移动到云端</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stealthbits.com/blog/lateral-movement-to-the-cloud-pass-the-prt/">ateral-movement-to-the-cloud-pass-the-prt&#x2F;</a></li>
+<li><a target="_blank" rel="noopener" href="https://derkvanderwoude.medium.com/pass-the-prt-attack-and-detection-by-microsoft-defender-for-afd7dbe83c94">pass-the-prt-attack-and-detection-by-microsoft-defender-for</a></li>
+</ul>
+<h3 id="Azure-AD-通过证书"><a href="#Azure-AD-通过证书" class="headerlink" title="Azure AD 通过证书"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure-ad-pass-the-certificate"></a>Azure AD 通过证书</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@mor2464/azure-ad-pass-the-certificate-d0c5de624597">https:&#x2F;&#x2F;medium.com&#x2F;@mor2464&#x2F;azure-ad-pass-the-certificate</a></li>
+</ul>
+<h3 id="如何通过-SSH-连接到特定的-Azure-Web-App-实例"><a href="#如何通过-SSH-连接到特定的-Azure-Web-App-实例" class="headerlink" title="如何通过 SSH 连接到特定的 Azure Web App 实例"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#how-to-ssh-into-specific-azure-web-app-instance"></a>如何通过 SSH 连接到特定的 Azure Web App 实例</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://codez.deedx.cz/posts/how-to-ssh-into-web-app-instance/">https://codez.deedx.cz/posts/how-to-ssh-into-web-app-instance/</a></li>
+</ul>
+<h3 id="攻击-Azure、Azure-AD-并介绍-PowerZure"><a href="#攻击-Azure、Azure-AD-并介绍-PowerZure" class="headerlink" title="攻击 Azure、Azure AD 并介绍 PowerZure"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#attacking-azure-azure-ad-and-introducing-powerzure"></a>攻击 Azure、Azure AD 并介绍 PowerZure</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://posts.specterops.io/attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a">attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a</a></li>
+</ul>
+<h3 id="未检测到的-Azure-Active-Directory-暴力破解攻击"><a href="#未检测到的-Azure-Active-Directory-暴力破解攻击" class="headerlink" title="未检测到的 Azure Active Directory 暴力破解攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#undetected-azure-active-directory-brute-force-attacks"></a>未检测到的 Azure Active Directory 暴力破解攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.secureworks.com/research/undetected-azure-active-directory-brute-force-attacks">undetected-azure-active-directory-brute-force-attacks</a></li>
+</ul>
+<h3 id="Azure-AD-如何容易受到暴力破解和-DOS-攻击"><a href="#Azure-AD-如何容易受到暴力破解和-DOS-攻击" class="headerlink" title="Azure AD 如何容易受到暴力破解和 DOS 攻击"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#how-azure-ad-could-be-vulnerable-to-brute-force-and-dos-attacks"></a>Azure AD 如何容易受到暴力破解和 DOS 攻击</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/hackernoon/azure-brute-farce-17e27dc05f85">https://medium.com/hackernoon/azure-brute-farce-17e27dc05f85</a></li>
+</ul>
+<h3 id="如何在-Azure-和-O365-中绕过-MFA"><a href="#如何在-Azure-和-O365-中绕过-MFA" class="headerlink" title="如何在 Azure 和 O365 中绕过 MFA"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#how-to-bypass-mfa-in-azure-and-o365"></a>如何在 Azure 和 O365 中绕过 MFA</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://secwise.be/how-to-bypass-mfa-in-azure-and-o365-part-1/">https://secwise.be/how-to-bypass-mfa-in-azure-and-o365-part-1/</a></li>
+</ul>
+<h2 id="AWS-安全工具"><a href="#AWS-安全工具" class="headerlink" title="AWS 安全工具"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#aws-security-tools"></a>AWS 安全工具</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/toniblyx/my-arsenal-of-aws-security-tools">github.com&#x2F;toniblyx&#x2F;my-arsenal-of-aws-security-tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blackbotsecurity/AWS-Attack">https://github.com/blackbotsecurity/AWS-Attack</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/awslabs/aws-cloudsaga">https://github.com/awslabs/aws-cloudsaga</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/awslabs/aws-support-tools">https://github.com/awslabs/aws-support-tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/0xVariable/AWS-Security-Tools">https://github.com/0xVariable/AWS-Security-Tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://cybersecurityup.github.io/awstrm/index.html">https://cybersecurityup.github.io/awstrm/index.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dafthack/CloudPentestCheatsheets/blob/master/cheatsheets/AWS.md">CloudPentestCheatsheets&#x2F;blob&#x2F;master&#x2F;cheatsheets&#x2F;AWS.md</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/RhinoSecurityLabs/cloudgoat">https://github.com/RhinoSecurityLabs/cloudgoat</a></li>
+</ul>
+<h2 id="Azure-安全工具"><a href="#Azure-安全工具" class="headerlink" title="Azure 安全工具"></a><a target="_blank" rel="noopener" href="https://github.com/CyberSecurityUP/Cloud-Security-Attacks#azure-security-tools"></a>Azure 安全工具</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/NetSPI/MicroBurst/blob/master/Misc/Invoke-EnumerateAzureBlobs.ps1">Invoke-EnumerateAzureBlobs.ps1</a></li>
+<li><a target="_blank" rel="noopener" href="https://microsoft.github.io/Azure-Threat-Research-Matrix/">https://microsoft.github.io/Azure-Threat-Research-Matrix/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Cloud-Architekt/AzureAD-Attack-Defense">https://github.com/Cloud-Architekt/AzureAD-攻击-防御</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dafthack/CloudPentestCheatsheets/blob/master/cheatsheets/Azure.md">CloudPentestCheatsheets&#x2F;blob&#x2F;master&#x2F;cheatsheets</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Kyuu-Ji/Awesome-Azure-Pentest/blob/main/README.md">https://github.com/Kyuu-Ji/Awesome-Azure-Pentest</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ine-labs/AzureGoat">https://github.com/ine-labs/AzureGoat</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kmcquade/awesome-azure-security">https://github.com/kmcquade/awesome-azure-security</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nccgroup/azucar">https://github.com/nccgroup/azucar</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/" class="category-chain-item">安全建设</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/安全建设/云安全相关渗透文章及工具 Cloud Security Attacks/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/%E4%BC%98%E7%A7%80%E7%9A%84%E5%BC%80%E6%BA%90%E6%83%85%E6%8A%A5%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90%E5%88%97%E8%A1%A8%E5%90%88%E9%9B%86/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/dnslog%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

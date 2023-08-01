@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="云怡">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目录导航  APIKiller 简介 项目背景 项目介绍 项目架构 功能 越权检测模块 CSRF检测模块 API运营平台   后期计划 食用宝典 检测效果展示 项目地址  APIKiller 简介一款高度可定制化的DAST&amp;API Security平台一款漏洞扫描（神）器API Security Tool 项目背景去年有幸进入字节无恒实验室实习，并负责抖音的安全SDLC工作，在期间也有不错">
+<meta property="og:type" content="article">
+<meta property="og:title" content="销骨风月斋">
+<meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/APIKiller%20%E2%80%93%20DAST&API%20%E5%AE%89%E5%85%A8%E6%89%AB%E6%8F%8F%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="销骨风月斋">
+<meta property="og:description" content="目录导航  APIKiller 简介 项目背景 项目介绍 项目架构 功能 越权检测模块 CSRF检测模块 API运营平台   后期计划 食用宝典 检测效果展示 项目地址  APIKiller 简介一款高度可定制化的DAST&amp;API Security平台一款漏洞扫描（神）器API Security Tool 项目背景去年有幸进入字节无恒实验室实习，并负责抖音的安全SDLC工作，在期间也有不错">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/1-12.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/2-9.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/3-6.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/4-5.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/5-2.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/6-2.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/7-1.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/8-1.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/1-13.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/2-10.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/3-7.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/4-6.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/5-3.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/5-1-1.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/6-3.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/7-2.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/8-2.webp">
+<meta property="og:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/9-1.webp">
+<meta property="article:published_time" content="2023-08-01T14:17:01.325Z">
+<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:author" content="云怡">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.ddosi.org/wp-content/uploads/2023/02/1-12.webp">
+  
+  
+  
+  <title>销骨风月斋</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"red-fair.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":200,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风月斋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-01 22:17" pubdate>
+          August 1, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>目录导航</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#APIKiller_%E7%AE%80%E4%BB%8B" title="APIKiller 简介">APIKiller 简介</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF" title="项目背景">项目背景</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D" title="项目介绍">项目介绍</a><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84" title="项目架构">项目架构</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E5%8A%9F%E8%83%BD" title="功能">功能</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E8%B6%8A%E6%9D%83%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97" title="越权检测模块">越权检测模块</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#CSRF%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97" title="CSRF检测模块">CSRF检测模块</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#API%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0" title="API运营平台">API运营平台</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E5%90%8E%E6%9C%9F%E8%AE%A1%E5%88%92" title="后期计划">后期计划</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E9%A3%9F%E7%94%A8%E5%AE%9D%E5%85%B8" title="食用宝典">食用宝典</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E6%A3%80%E6%B5%8B%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA" title="检测效果展示">检测效果展示</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ddosi.org/apikiller/#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80" title="项目地址">项目地址</a></li>
+</ul>
+<h2 id="APIKiller-简介"><a href="#APIKiller-简介" class="headerlink" title="APIKiller 简介"></a>APIKiller 简介</h2><p><strong>一款高度可定制化的DAST&amp;API Security平台</strong><br>一款漏洞扫描（神）器<br>API Security Tool</p>
+<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>去年有幸进入字节无恒实验室实习，并负责抖音的安全SDLC工作，在期间也有不错的产出，但发现很多问题都是IDOR这类的越权问题，当时想的就是能不能自动化识别啥的，毕竟一直这样也挺低效的（其实字节是有IDOR相关的DAST工具，只是有些没覆盖到），所以项目名称原本叫IDORKiller。但是最近写着写着，想着索性做成工程化的工具，于是在原有的基础上，进行整体结构上的优化，时期能够保证高效、易拓展的特性，于是就有了现在的APIKiller项目。</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h3><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/1-12.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/1-12.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/1-12.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a><strong>功能</strong></h3><ul>
+<li><p>支持HTTP&#x2F;HTTPS流量检测</p>
+</li>
+<li><p>多来源检测</p>
+<ul>
+<li>支持流量监听</li>
+<li>支持历史流量回扫</li>
+</ul>
+</li>
+<li><p>多功能扫描模块</p>
+<ul>
+<li>越权检测模块，高效精准，支持多情景检测<ul>
+<li>具备多角色账号、单角色账号测试能力【单角色账号测试暂不启用，黑盒师傅有想法的可以直接看文档中的介绍，或私下交流】</li>
+<li>多维度、特征化判断引擎</li>
+</ul>
+</li>
+<li>csrf检测模块<ul>
+<li>支持token检测</li>
+<li>常见的referer、origin检测</li>
+</ul>
+</li>
+<li>【欢迎大家一起来开发新的模块】</li>
+</ul>
+</li>
+<li><p>多功能Filter处理，默认自带多个filter</p>
+<ul>
+<li>针对性扫描，例如只对 baidu.com域名进行扫描</li>
+<li>去重扫描，提高效率</li>
+<li>自动过滤静态文件(js,gif,jpg,png,css,jpeg,xml,img,svg…)</li>
+</ul>
+</li>
+<li><p>API 运维</p>
+<ul>
+<li>提供简易的API Security运维平台</li>
+</ul>
+</li>
+<li><p>多方式漏洞发现提醒</p>
+<ul>
+<li>Lark飞书</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>对抗常见风控手段</p>
+<ul>
+<li>频控</li>
+</ul>
+</li>
+<li><p><strong>&#x3D;&#x3D;【重磅】以上都可以快速进行拓展&amp;二次开发&#x3D;&#x3D;</strong><a target="_blank" rel="noopener" href="https://github.com/Aur0ra-m/APIKiller#%E9%A3%9F%E7%94%A8%E5%AE%9D%E5%85%B8"></a></p>
+</li>
+</ul>
+<blockquote>
+<p>由于多处核心组件采用了抽象的方式，所以可以给有需要的使用者进行快速的二次开发（二次开发的文档，后续将会补齐）</p>
+</blockquote>
+<h3 id="越权检测模块"><a href="#越权检测模块" class="headerlink" title="越权检测模块"></a><a target="_blank" rel="noopener" href="https://aur0ra.cn/3-apikiller/#%E8%B6%8A%E6%9D%83%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97"></a>越权检测模块</h3><blockquote>
+<p>越权检测既定分为三个子模块：未授权检测模块、单角色检测模块、多角色检测模块；但单角色检测模块和未授权检测模块存在较大优化空间，所以当前采用简易模式，仅能够适用于甲方日常，如果想用去扫描，则可以手动开启，或加以改造</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/2-9.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/2-9.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/2-9.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>越权判断引擎</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/3-6.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/3-6.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/3-6.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>未授权检测模块</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/4-5.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/4-5.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/4-5.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>单角色检测模块</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-2.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-2.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/5-2.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>多角色检测模块</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/6-2.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/6-2.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/6-2.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<h3 id="CSRF检测模块"><a href="#CSRF检测模块" class="headerlink" title="CSRF检测模块"></a>CSRF检测模块</h3><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/7-1.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/7-1.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/7-1.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<h3 id="API运营平台"><a href="#API运营平台" class="headerlink" title="API运营平台"></a>API运营平台</h3><p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/8-1.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/8-1.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/8-1.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<h2 id="后期计划"><a href="#后期计划" class="headerlink" title="后期计划"></a>后期计划</h2><ul>
+<li>添加基于poc的扫描模块</li>
+<li>403bypass module</li>
+<li>完善其他通知方式的支持</li>
+<li>支持扫描代理功能</li>
+<li>提供docker版快速搭建能力</li>
+<li>其他</li>
+</ul>
+<h2 id="食用宝典"><a href="#食用宝典" class="headerlink" title="食用宝典"></a>食用宝典</h2><p>安装好数据库环境（我个人采用的是docker）</p>
+<ol>
+<li>docker pull 数据库镜像</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">sudo docker run <span class="hljs-comment">--name mysql-server -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306  mysql:5.7</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>导入apikiller.sql文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo docker <span class="hljs-built_in">cp</span> /tmp/apikiller.sql bteye-mysql:/tmp/apikiller.sql<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>登入mysql</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it mysql-server mysql -uroot -p123456 <span class="hljs-built_in">source</span> /tmp/apikiller.sql<br></code></pre></td></tr></table></figure>
+
+<p>在 config.json 中配置好</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/1-13.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/1-13.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/1-13.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>安装根目录下的https证书[windows环境]</p>
+<ol>
+<li>找到根目录下的ca.crt证书</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/2-10.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/2-10.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/2-10.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<ol>
+<li>点击安装即可，将其添加到系统根信任证书颁发位置</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/3-7.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/3-7.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/3-7.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>配置成功后，当发现漏洞时，会立即推送漏洞信息</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/4-6.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/4-6.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/4-6.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>一键启动【所有的配置都在config.json】</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-3.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-3.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/5-3.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-1-1.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/5-1-1.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/5-1-1.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<ol>
+<li>ding~，发现新漏洞，快去看鸭</li>
+</ol>
+<h2 id="检测效果展示"><a href="#检测效果展示" class="headerlink" title="检测效果展示"></a><a target="_blank" rel="noopener" href="https://github.com/Aur0ra-m/APIKiller#%E6%A3%80%E6%B5%8B%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"></a>检测效果展示</h2><p>这里基于<a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/332312.html">VAPI越权靶场</a> 进行实战模拟 配好环境后，先根据项目鉴权机制，拿两个账号，配置好config.json</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/6-3.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/6-3.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/6-3.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p>然后启动项目，访问接口</p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/7-2.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/7-2.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/7-2.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/8-2.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/8-2.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/8-2.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<p><strong>成功检测出越权和csrf</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/9-1.webp"></a><a target="_blank" rel="noopener" href="https://www.ddosi.org/wp-content/uploads/2023/02/9-1.webp"><img src="https://www.ddosi.org/wp-content/uploads/2023/02/9-1.webp" srcset="/img/loading.gif" lazyload alt="APIKiller - DAST&amp;API 安全扫描平台"></a></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>GitHub:<br><a target="_blank" rel="noopener" href="https://github.com/Aur0ra-m/APIKiller">https://github.com/Aur0ra-m/APIKiller</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/" class="category-chain-item">安全建设</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/安全建设/APIKiller – DAST&amp;API 安全扫描平台/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>云怡</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 1, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%BE/dnslog%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/%E5%AD%97%E5%85%B8%E7%B1%BB/sql%E6%B3%A8%E5%85%A5%E7%99%BB%E9%99%86%E7%BB%95%E8%BF%87%20SQLi%20Auth%20Bypass%20payloads/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
