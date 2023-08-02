@@ -18,7 +18,7 @@
   
     <meta name="description" content="1. WebSocket协议1.1 简介WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端与服务器全双工（full-duplex）通信，即允许服务器主动发送信息给客户端。因此，在WebSocket中，客户端和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输，这样也使得客户端和服务器之间的数据交换变得更加简单。 ​ 编辑切换为居中 添加图片注释，不超">
 <meta property="og:type" content="article">
-<meta property="og:title" content="销骨风月斋">
+<meta property="og:title" content="WebSocket API安全风险解读">
 <meta property="og:url" content="https://red-fair.github.io/red-fair.github.io/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/WebSocket%20API%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E8%A7%A3%E8%AF%BB/index.html">
 <meta property="og:site_name" content="销骨风月斋">
 <meta property="og:description" content="1. WebSocket协议1.1 简介WebSocket协议是基于TCP的一种新的网络协议。它实现了客户端与服务器全双工（full-duplex）通信，即允许服务器主动发送信息给客户端。因此，在WebSocket中，客户端和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输，这样也使得客户端和服务器之间的数据交换变得更加简单。 ​ 编辑切换为居中 添加图片注释，不超">
@@ -45,14 +45,14 @@
 <meta property="og:image" content="https://picx.zhimg.com/80/v2-dec3fafcec9c6445b2184cfc37ee7394_720w.png">
 <meta property="og:image" content="https://picx.zhimg.com/80/v2-713cf32b07bc93611c4c4aeb5fed9f9f_720w.png">
 <meta property="article:published_time" content="2023-08-01T14:17:01.306Z">
-<meta property="article:modified_time" content="2023-08-01T14:19:11.821Z">
+<meta property="article:modified_time" content="2023-08-02T16:29:32.867Z">
 <meta property="article:author" content="云怡">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-eaeb5903ffaf33e6bc89cdeaa09dba0a_720w.png">
   
   
   
-  <title>销骨风月斋</title>
+  <title>WebSocket API安全风险解读 - 销骨风月斋</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -233,7 +233,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="WebSocket API安全风险解读"></span>
           
         </div>
 
@@ -305,7 +305,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">WebSocket API安全风险解读</h1>
             
             
               <div class="markdown-body">
@@ -457,12 +457,15 @@
   <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/" class="category-chain-item">代码安全</a>
-  
-  
 
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/" class="category-chain-item">代码安全</a>
+  
   
 
       </span>
@@ -481,7 +484,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>WebSocket API安全风险解读</div>
       <div>https://red-fair.github.io/red-fair.github.io/2023/08/01/网络安全/代码安全/WebSocket API安全风险解读/</div>
     </div>
     <div class="license-meta">
@@ -526,9 +529,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/CursorCode%20%E5%9F%BA%E4%BA%8ECursor%20API%E7%9A%84GPT%E6%99%BA%E8%83%BDAI%E4%BB%A3%E7%A0%81%E5%8A%A9%E6%89%8B/" title="">
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/CursorCode%20%E5%9F%BA%E4%BA%8ECursor%20API%E7%9A%84GPT%E6%99%BA%E8%83%BDAI%E4%BB%A3%E7%A0%81%E5%8A%A9%E6%89%8B/" title="CursorCode 基于Cursor API的GPT智能AI代码助手">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">CursorCode 基于Cursor API的GPT智能AI代码助手</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -536,8 +539,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/gshark%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2023/08/01/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/gshark%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" title="gshark平台搭建">
+                        <span class="hidden-mobile">gshark平台搭建</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
